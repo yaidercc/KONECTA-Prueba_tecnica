@@ -8,7 +8,7 @@ const Role = sequelize.define("Role", {
     autoIncrement: true,
   },
   name: {
-    type: DataTypes.DATEONLY,
+    type: DataTypes.STRING,
     allowNull: false,
   },
 });

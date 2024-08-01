@@ -1,12 +1,16 @@
 const employeeModel = require("../models/employee");
+const roleModel = require("../models/roles");
 
-const employeeServices = {}
+const employeeServices = {};
 module.exports = employeeServices;
 
+employeeServices.createEmployee = async ( EmployeeInfo ) => {
+    
+    // Validar que el rol exista
+    const validateRole = await roleModel.findByPk(EmployeeInfo.role_id);
+    if (!validateRole) throw new Error("El rol ingresado no existe");
 
-employeeServices.createEmployee = async ( EmployeeInfo ) => employeeModel.create(EmployeeInfo);
+    return employeeModel.create(EmployeeInfo);
+};
 
-
-employeeServices.getEmployee = () => {
-   
-}
+employeeServices.getEmployee = () => {};

@@ -8,10 +8,13 @@ router.post("/", [
     check("join_date", "La fecha de ingreso es obligatoria").isDate(),
     check("join_date", "La fecha de ingreso es obligatoria").not().isEmpty(),
     check("salary", "El salario es obligatorio").not().isEmpty(),
-    // check("role_id", "El rol es obligatorio").not().isEmpty(),
+    check("role_id", "El rol es obligatorio").not().isEmpty(),
     validateFields
 ], employeeControllers.createEmployee);
 
-// router.get("/", [], getEmployee);
+router.get("/:id", [
+    check("id","el id del empleado es obligatorio").not().isEmpty(),
+    validateFields
+], employeeControllers.getEmployee);
 
 module.exports = router;
