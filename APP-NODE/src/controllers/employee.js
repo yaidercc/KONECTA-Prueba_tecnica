@@ -22,8 +22,16 @@ employee.createEmployee = async (req = Request, res = Response) => {
   }
 };
 
-employee.getEmployee = (req = Request, res = Response) => {
+employee.getEmployee = async (req = Request, res = Response) => {
   try {
+    const { id } = req.params;
+
+    const employee = await employeeServices.getEmployee(id);
+    
+    return res.json({
+        success: true,
+        employee: employee || "Empleado no encontrado"
+    })
   } catch (error) {
     console.log(error);
     return res.status(500).json({
