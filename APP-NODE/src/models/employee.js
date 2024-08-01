@@ -20,22 +20,14 @@ const Employee = sequelize.define("Employee", {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      username: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      role_id: {
-        type: DataTypes.INTEGER,
-        references: {
-          model: Role,
-          key: "id",
-        },
-        allowNull: false,
-      },
+      // role_id: {
+      //   type: DataTypes.INTEGER,
+      //   references: {
+      //     model: Role,
+      //     key: "id",
+      //   },
+      //   allowNull: false,
+      // },
     
 });
 

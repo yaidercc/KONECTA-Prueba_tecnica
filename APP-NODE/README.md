@@ -6,4 +6,6 @@
 
 - implementé documentacion con swagger
 
+- implementé helmet
+
 ## Seguridad

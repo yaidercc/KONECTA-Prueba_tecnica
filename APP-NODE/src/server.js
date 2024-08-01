@@ -11,14 +11,16 @@ class Server {
     this.app = express();
 
     this.path = {
-      user: "/api/user",
+      employee: "/api/employee",
       auth: "/api/auth",
+      request: "/api/request"
     };
 
-    // Conexion a la base de datos
     this.connectDB();
 
     this.middlewares();
+
+    this.routes()
   }
 
   middlewares() {
@@ -30,18 +32,22 @@ class Server {
   async connectDB() {
     try {
       await database.authenticate();
-      console.log("-> Conexion exitosa a la BD: ");
+      console.log("-> ".green + "Conexion exitosa a la BD");
       await sequelize.sync({ force: true });
     } catch (error) {
-      console.log("X Error al conectarse a la BD: ".red, error);
+      console.log("X ".red + "Error al conectarse a la BD: ".red, error);
     }
   }
 
-  routes() {}
+  routes() {
+    this.app.use(this.path.auth,require("./routes/auth"))
+    this.app.use(this.path.request,require("./routes/request"))
+    this.app.use(this.path.employee,require("./routes/employee"))
+  }
 
   listen() {
     this.app.listen(this.port, () => {
-      console.log(`-> Conectado en el puerto: ${this.port}`.green);
+      console.log("-> ".green +`Conectado en el puerto: ${this.port}`);
     });
   }
 }

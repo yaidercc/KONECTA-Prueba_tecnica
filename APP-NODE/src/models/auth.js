@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 const Employee = require("./employee");
 
-const Role = sequelize.define("Role", {
+const Auth = sequelize.define("Auth", {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -11,7 +11,7 @@ const Role = sequelize.define("Role", {
   user_id: {
     type: DataTypes.INTEGER,
     references: {
-      model: Role,
+      model: Employee,
       key: "id",
     },
     allowNull: false,
@@ -19,6 +19,7 @@ const Role = sequelize.define("Role", {
   username: {
     type: DataTypes.STRING,
     allowNull: false,
+    unique: true,
   },
   password: {
     type: DataTypes.STRING,
@@ -26,4 +27,4 @@ const Role = sequelize.define("Role", {
   },
 });
 
-module.exports = Employee;
+module.exports = Auth;
