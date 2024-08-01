@@ -28,14 +28,14 @@ class Server {
     this.app.use(cors());
     this.app.use(express.json());
     this.app.use(hemlet());
-    V1SwaggerDocs(this.app, this.port);
+    // V1SwaggerDocs(this.app, this.port);
   }
 
   async connectDB() {
     try {
       await database.authenticate();
       console.log("-> ".green + "Conexion exitosa a la BD");
-      await sequelize.sync({ force: true });
+      await sequelize.sync();
 
       // Funcion para quemar los roles en la tabla
       this.createRoles();

@@ -3,7 +3,7 @@ const employeeServices = require("../services/employee");
 const employee = {};
 module.exports = employee;
 
-employee.createEmployee = async (req = Request, res = Response) => {
+employee.createEmployee = async (req, res) => {
   try {
     const { name, join_date, salary, role_id } = req.body;
 
@@ -22,7 +22,7 @@ employee.createEmployee = async (req = Request, res = Response) => {
   }
 };
 
-employee.getEmployee = async (req = Request, res = Response) => {
+employee.getEmployee = async (req, res) => {
   try {
     const { id } = req.params;
 

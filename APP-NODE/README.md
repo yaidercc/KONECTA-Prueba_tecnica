@@ -8,6 +8,8 @@
 
 - implementé helmet
 
+- Encriptar la clave con bcryptjs
+
 !!!!!!!!!!! CREAR SCRIPT PARA EL USUARIO DE POSTGRES !!!!!!!!!!!!!!!!!
 
 ## Seguridad
