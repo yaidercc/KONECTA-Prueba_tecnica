@@ -5,7 +5,7 @@ const hemlet = require("helmet");
 require("colors");
 const database = require("../src/config/database");
 const Roles = require("./models/roles");
-
+const { swaggerDocs: V1SwaggerDocs } = require("./config/swagger");
 class Server {
   constructor() {
     this.port = process.env.PORT;
@@ -28,6 +28,7 @@ class Server {
     this.app.use(cors());
     this.app.use(express.json());
     this.app.use(hemlet());
+    V1SwaggerDocs(this.app, this.port);
   }
 
   async connectDB() {
@@ -46,7 +47,7 @@ class Server {
   async createRoles() {
     try {
       const roles = ["employee", "admin"];
-      
+
       for (const role of roles) {
         await Roles.findOrCreate({
           where: { name: role },
