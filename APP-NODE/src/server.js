@@ -27,7 +27,7 @@ class Server {
   }
 
   middlewares() {
-    this.app.use(cors());
+    this.app.use(cors({ origin: "http://localhost:5173", credentials: true }));
     this.app.use(express.json());
     this.app.use(hemlet());
     // V1SwaggerDocs(this.app, this.port);
@@ -36,7 +36,7 @@ class Server {
   async connectDB() {
     try {
       await database.authenticate();
-      // console.log("-> ".green + "Conexion exitosa a la BD");
+      console.log("-> ".green + "Conexion exitosa a la BD");
       await sequelize.sync();
 
       // Funcion para quemar los roles en la tabla
@@ -68,11 +68,11 @@ class Server {
   }
 
   listen() {
-    if(process.env.NODE_ENV !== "test"){
+    if (process.env.NODE_ENV !== "test") {
       this.app.listen(this.port, () => {
-        // console.log("-> ".green + `Conectado en el puerto: ${this.port}`);
+        console.log("-> ".green + `Conectado en el puerto: ${this.port}`);
       });
-    }else{
+    } else {
       console.log("Modo de pruebas");
     }
   }
