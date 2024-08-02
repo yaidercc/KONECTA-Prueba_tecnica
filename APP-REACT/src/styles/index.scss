@@ -1,0 +1,13 @@
+@import "base/mixins";
+
+.container-form{
+  height: 100vh;
+  // background-color: red;
+  @include Flex();
+  form{
+    width: 500px;
+    // background-color: blue;
+    border-radius: 10px;
+    padding: 20px;
+  }
+}
