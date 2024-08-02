@@ -1,12 +1,22 @@
 const requestServices = require("../services/request");
+const { Op } = require("sequelize");
 const requestControllers = {};
 module.exports = requestControllers;
 
 requestControllers.getRequest = async (req, res) => {
   try {
     const { page } = req.params;
+    const { code, description, summary } = req.query;
+    const filters = {};
+    
+    
+    if (code) filters.code = { [Op.iLike]: `%${code}%` };
+    if (description) filters.description = { [Op.iLike]: `%${description}%` };
+    if (summary) filters.summary = { [Op.iLike]: `%${summary}%` };
+
+
     const offset = (page - 1) * 10;
-    const requests = await requestServices.getRequests(offset);
+    const requests = await requestServices.getRequests(offset,filters);
     return res.json({
       success: true,
       requests,

@@ -2,10 +2,12 @@ const requestModel = require("../models/request.js");
 const requestServices = {};
 module.exports = requestServices;
 
-requestServices.getRequests = (offset) => requestModel.findAll({
+requestServices.getRequests = (offset,filters) =>
+  requestModel.findAll({
     limit: 10,
     offset,
-});
+    where: filters
+  });
 
 requestServices.createRequest = async (requestInfo) => requestModel.create(requestInfo);
 
