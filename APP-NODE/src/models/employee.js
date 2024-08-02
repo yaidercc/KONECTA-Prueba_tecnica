@@ -20,14 +20,14 @@ const Employee = sequelize.define("Employee", {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      // role_id: {
-      //   type: DataTypes.INTEGER,
-      //   references: {
-      //     model: Role,
-      //     key: "id",
-      //   },
-      //   allowNull: false,
-      // },
+      role_id: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: Role,
+          key: "id",
+        },
+        allowNull: false,
+      },
     
 });
 

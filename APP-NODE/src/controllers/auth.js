@@ -24,7 +24,7 @@ authControllers.createEmployeeLogin = async (req, res) => {
     console.log(error);
     return res.status(500).json({
       success: false,
-      error,
+      error: error.message,
     });
   }
 };
@@ -67,12 +67,12 @@ authControllers.login = async (req, res) => {
     console.log(error);
     return res.status(500).json({
       success: false,
-      error,
+      error: error.message,
     });
   }
 };
 
-authControllers.renewToken = async () => {
+authControllers.renewToken = async (req,res) => {
   try {
     const { employee } = req;
 
@@ -86,7 +86,7 @@ authControllers.renewToken = async () => {
     console.log(error);
     return res.status(500).json({
       success: false,
-      error,
+      error: error.message,
     });
   }
 };

@@ -9,7 +9,7 @@ const Requests = sequelize.define("Request", {
     autoIncrement: true,
   },
   code: {
-    type: DataTypes.DATEONLY,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   description: {
@@ -17,7 +17,7 @@ const Requests = sequelize.define("Request", {
     allowNull: false,
   },
   summary: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
   },
   employee_id: {
     type: DataTypes.INTEGER,
