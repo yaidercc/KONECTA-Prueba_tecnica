@@ -47,15 +47,9 @@ export const useAuth = () => {
       setIsLoading(false);
     }
   };
-  const Logout = async () => {
-    await axios.get("/auth/logout");
-    setUser({});
-    setIsAuthenticated(false);
-    localStorage.removeItem("topic");
-  };
+
   return {
     Login,
-    Logout,
     Signup,
   };
 };
