@@ -17,7 +17,9 @@ class Server {
       request: "/api/request",
     };
 
-    this.connectDB();
+    if (process.env.NODE_ENV !== "test") {
+      this.connectDB();
+    }
 
     this.middlewares();
 
@@ -34,7 +36,7 @@ class Server {
   async connectDB() {
     try {
       await database.authenticate();
-      console.log("-> ".green + "Conexion exitosa a la BD");
+      // console.log("-> ".green + "Conexion exitosa a la BD");
       await sequelize.sync();
 
       // Funcion para quemar los roles en la tabla
@@ -66,9 +68,13 @@ class Server {
   }
 
   listen() {
-    this.app.listen(this.port, () => {
-      console.log("-> ".green + `Conectado en el puerto: ${this.port}`);
-    });
+    if(process.env.NODE_ENV !== "test"){
+      this.app.listen(this.port, () => {
+        // console.log("-> ".green + `Conectado en el puerto: ${this.port}`);
+      });
+    }else{
+      console.log("Modo de pruebas");
+    }
   }
 }
 
