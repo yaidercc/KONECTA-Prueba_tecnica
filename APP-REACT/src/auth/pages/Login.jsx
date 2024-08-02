@@ -1,6 +1,9 @@
+import { Loader } from "../../ui/components/Loader/Loader";
+
 export const Login = () => {
   return (
     <div className="login container-form">
+      {/* <Loader/> */}
       <form className="login__form bg-light">
         <h2 className="mb-4 text-center">Iniciar Sesion</h2>
         <div className="mb-3">
