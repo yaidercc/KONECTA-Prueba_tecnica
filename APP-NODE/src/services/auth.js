@@ -4,14 +4,24 @@ module.exports = authServices;
 
 authServices.createEmployeeLogin = async (employeeLoginInfo) => {
   try {
-    const findEmployeeLogin = await authModel.findAll({
+    const findEmployeeLoginById = await authModel.findAll({
       where: {
         user_id: employeeLoginInfo.user_id,
       },
     });
 
-    if (findEmployeeLogin.length > 0) {
-      throw new Error("El usuario ya tiene informacion de inicio de sesion")
+    if (findEmployeeLoginById.length > 0) {
+      throw new Error("El empleado ya tiene informacion de inicio de sesion")
+    }
+
+    const findEmployeeLoginByUser = await authModel.findAll({
+      where: {
+        user_id: employeeLoginInfo.user_id,
+      },
+    });
+
+    if (findEmployeeLoginByUser.length > 0) {
+      throw new Error("El nombre de usuario ya existe")
     }
     
     return await authModel.create(employeeLoginInfo);
