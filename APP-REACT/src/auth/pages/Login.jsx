@@ -1,10 +1,14 @@
 import { Loader } from "../../ui/components/Loader/Loader";
 
 export const Login = () => {
+
+  const onSubmit = (event) => {
+
+  }
+
   return (
     <div className="login container-form">
-      {/* <Loader/> */}
-      <form className="login__form bg-light">
+      <form className="login__form bg-light" onSubmit={onSubmit}>
         <h2 className="mb-4 text-center">Iniciar Sesion</h2>
         <div className="mb-3">
           <label htmlFor="username" className="form-label">
