@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { UserContext } from "../context/UserContext";
+import { UserContext } from "../context/User/UserContext";
 import { Navigate } from "react-router-dom";
 import { Loader } from "../ui";
 export const PublicRoute = ({ children }) => {

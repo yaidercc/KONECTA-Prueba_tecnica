@@ -22,15 +22,14 @@ employee.createEmployee = async (req, res) => {
   }
 };
 
-employee.getEmployee = async (req, res) => {
-  try {
-    const { id } = req.params;
 
-    const employee = await employeeServices.getEmployee(id);
+employee.getAllEmployees = async (req, res) => {
+  try {
+    const employees = await employeeServices.getAllEmployees();
 
     return res.json({
       success: true,
-      employee: employee || "Empleado no encontrado",
+      employees,
     });
   } catch (error) {
     console.log(error);
