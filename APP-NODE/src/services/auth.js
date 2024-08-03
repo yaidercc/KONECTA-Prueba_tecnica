@@ -8,7 +8,7 @@ authServices.login = async (username) => {
       where: {
         username,
       },
-      attributes: ["id", "username", "password","name","join_date","salary"],
+      attributes: ["id", "username", "password","name","join_date","salary","role_id"],
     });
   } catch (error) {
     throw error;

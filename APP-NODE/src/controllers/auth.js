@@ -14,7 +14,7 @@ authControllers.login = async (req, res) => {
     if (!employee) {
       return res.status(400).json({
         success: false,
-        mgs: "EL usuario o la clave es incorrecto",
+        msg: "EL usuario o la clave es incorrecto",
       });
     }
     const validPassword = bycryptjs.compareSync(password, employee.password);
@@ -34,6 +34,7 @@ authControllers.login = async (req, res) => {
         name: employee.name,
         join_date: employee.join_date,
         salary: employee.salary,
+        role_id: employee.role_id
       },
       token,
     });

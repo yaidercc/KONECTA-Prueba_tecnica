@@ -44,7 +44,7 @@ requestControllers.createRequest = async (req, res) => {
 
     return res.json({
       success: true,
-      mgs: "La solicitud fue creada con exito.",
+      msg: "La solicitud fue creada con exito.",
       request,
     });
   } catch (error) {
