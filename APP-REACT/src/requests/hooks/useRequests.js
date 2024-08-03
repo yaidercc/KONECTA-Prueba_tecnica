@@ -7,7 +7,7 @@ export const useRequests = () => {
     getRequests();
   }, []);
 
-  const getRequests = async (page=1) => {
+  const getRequests = async (page = 1) => {
     try {
       const response = await axios.get(`request/${page}`, {
         headers: {
@@ -15,8 +15,30 @@ export const useRequests = () => {
         },
       });
       const { requests } = response.data;
-      
+
       setRequests(requests);
+    } catch (error) {
+      const errorInfo = error.response.data?.msg || error.response.data?.errors?.msg || error?.message;
+      alert(errorInfo);
+    }
+  };
+
+  const createRequests = async ({ code, description, summary }) => {
+    try {
+      await axios.post(
+        `request`,
+        {
+          code,
+          description,
+          summary,
+        },
+        {
+          headers: {
+            "x-token": localStorage.getItem("token"),
+          },
+        }
+      );
+      getRequests(localStorage.getItem("page"))
     } catch (error) {
       const errorInfo = error.response.data?.msg || error.response.data?.errors?.msg || error?.message;
       alert(errorInfo);
@@ -30,8 +52,7 @@ export const useRequests = () => {
           "x-token": localStorage.getItem("token"),
         },
       });
-      const newRequests = requests.requests.filter((item) => item.id !== id);
-      setRequests({...requests, requests: newRequests, });
+      getRequests(localStorage.getItem("page"))
     } catch (error) {
       const errorInfo = error.response.data?.msg || error.response.data?.errors?.msg || error?.message;
       alert(errorInfo);
@@ -41,5 +62,6 @@ export const useRequests = () => {
   return {
     getRequests,
     deleteRequests,
+    createRequests,
   };
 };

@@ -5,6 +5,7 @@ import { useRequests } from "../hooks/useRequests";
 import { RequestContext } from "../../context/Requests/RequestContext";
 import { Pagination } from "../components";
 import { Table } from "../components/Table";
+import { ModalForm } from "../../ui/components/Modal/ModalForm";
 
 export const Requests = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -41,11 +42,16 @@ export const Requests = () => {
       <Navbar nameUser={user.name} logout={logout} />
 
       <h2 className="mt-3 ">Solicitudes</h2>
-      <button className="btn btn-success">Crear Solicitud</button>
+      <ModalForm />
       <hr />
-
       <Table handleDeleteRequest={handleDeleteRequest} requests={requests} role_id={user.role_id} />
-      <Pagination countPages={countPages} pages={pages} paginationControls={paginationControls} currentPage={currentPage} handleSetCurrentPage={handleSetCurrentPage} />
+      <Pagination
+        countPages={countPages}
+        pages={pages}
+        paginationControls={paginationControls}
+        currentPage={currentPage}
+        handleSetCurrentPage={handleSetCurrentPage}
+      />
     </div>
   );
 };

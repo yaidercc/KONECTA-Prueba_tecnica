@@ -1,6 +1,4 @@
-
-
-export const Table = ({role_id,handleDeleteRequest,requests}) => {
+export const Table = ({ role_id, handleDeleteRequest, requests }) => {
   return (
     <table className="table">
       <thead>
@@ -11,6 +9,22 @@ export const Table = ({role_id,handleDeleteRequest,requests}) => {
           <th scope="col">Resumen</th>
           <th scope="col">Empleado</th>
           {role_id === 1 || <th scope="col">Eliminar</th>}
+        </tr>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">
+            <input type="text" className="form-control" placeholder="Buscar por codigo " />
+          </th>
+          <th scope="col">
+            <input type="text" className="form-control" placeholder="Buscar por descripcion" />
+          </th>
+          <th scope="col">
+            <input type="text" className="form-control" placeholder="Buscar por resumen" />
+          </th>
+          <th scope="col">
+            <input type="text" className="form-control" placeholder="Buscar por empleado" />
+          </th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
