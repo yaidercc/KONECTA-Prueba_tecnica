@@ -30,7 +30,7 @@ export const useAuth = () => {
   const Signup = async ({ name, join_date, salary, username, password }) => {
     try {
       setIsLoading(true);
-      await axios.post("/auth/signin", {
+      await axios.post("/employee", {
         name,
         join_date,
         salary,

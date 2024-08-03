@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { UserContext } from "./UserContext";
 import axios from "../../helpers/fetchApi";
-import { useNavigate } from "react-router-dom";
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState({});
@@ -18,6 +17,8 @@ export const UserProvider = ({ children }) => {
         },
       });
       const { employee, token } = response.data;
+      console.log(employee);
+      
       setUser(employee);
       setIsAuthenticated(true);
       localStorage.setItem("token", token);

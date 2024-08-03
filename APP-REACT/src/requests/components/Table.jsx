@@ -14,15 +14,15 @@ export const Table = ({ role_id, handleDeleteRequest, requests }) => {
     setFilters((prevFilters) => {
       const updatedFilters = { ...prevFilters, [name]: value };
       const filtersToSend = Object.entries(updatedFilters)
-        .filter(([key, val]) => val !== "" && val != null && val !== 0 && val !== '0')
+        .filter(([key, val]) => val !== "" && val != null && val !== 0 && val !== "0")
         .reduce((acc, [key, val]) => {
           acc[key] = val;
           return acc;
         }, {});
+        
       getRequests(1, filtersToSend);
 
       return updatedFilters;
-      
     });
   };
 
@@ -30,11 +30,11 @@ export const Table = ({ role_id, handleDeleteRequest, requests }) => {
     const response = await getEmployees();
     const { employees } = response.data;
     setEmployees(employees);
-    
   };
 
   useEffect(() => {
     handleGetEmployee();
+    
   }, []);
 
   return (
@@ -46,7 +46,7 @@ export const Table = ({ role_id, handleDeleteRequest, requests }) => {
           <th scope="col">Descripcion</th>
           <th scope="col">Resumen</th>
           <th scope="col">Empleado</th>
-          {role_id === 1 || <th scope="col">Eliminar</th>}
+          <th scope="col">{role_id === 2 ? "Eliminar" : null}</th>
         </tr>
         <tr>
           <th scope="col"></th>
@@ -74,9 +74,13 @@ export const Table = ({ role_id, handleDeleteRequest, requests }) => {
             />
           </th>
           <th scope="col">
-            <select className="form-select" name="employee" value={employee}  onChange={onInputChange}>
-              <option value={0} >Seleccione un empleado</option>
-             {employees.map((item,i)=>( <option value={item.id} key={i} >{item.name}</option>))}
+            <select className="form-select" name="employee" value={employee} onChange={onInputChange}>
+              <option value={0}>Todos</option>
+              {employees.map((item, i) => (
+                <option value={item.id} key={i}>
+                  {item.name}
+                </option>
+              ))}
             </select>
           </th>
           <th scope="col"></th>
@@ -90,13 +94,13 @@ export const Table = ({ role_id, handleDeleteRequest, requests }) => {
             <td>{item.description}</td>
             <td>{item.summary}</td>
             <td>{item.Employee.name}</td>
-            {role_id === 1 || (
-              <td>
+            <td>
+              {role_id == 2 ? (
                 <button className="btn btn-danger" onClick={() => handleDeleteRequest(item.id)}>
                   Eliminar
                 </button>
-              </td>
-            )}
+              ) : null}
+            </td>
           </tr>
         ))}
       </tbody>
