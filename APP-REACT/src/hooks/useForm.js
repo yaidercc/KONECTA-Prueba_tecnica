@@ -33,7 +33,7 @@ export const useForm = (initialValue = {}) => {
     const formattedErrors = Object.keys(newErrorFields).reduce((acc, key) => {
       acc[key] = newErrorFields[key].join(" ");
       if (key === "password") {
-        acc[key] = "La clave no cumple los requisitos.";
+        acc[key] = "La clave debe ser de 8 digitos almenos una mayuscula y una minuscula y un numero";
       }
       return acc;
     }, {});

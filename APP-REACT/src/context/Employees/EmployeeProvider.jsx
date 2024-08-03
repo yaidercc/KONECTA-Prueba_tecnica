@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import { UserContext } from "./UserContext";
+import { EmployeeContext } from "./EmployeeContext";
 import axios from "../../helpers/fetchApi";
-import { useNavigate } from "react-router-dom";
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState({});
+  const [employee, setEmployee] = useState({});
+  const [employees, setEmployees] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const navigate = useNavigate();
 
   const validateAuthentication = async () => {
     try {
@@ -18,8 +17,8 @@ export const UserProvider = ({ children }) => {
           "x-token": localStorage.getItem("token"),
         },
       });
-      const { employee, token } = response.data;
-      setUser(employee);
+      const { employee, token } = response.data;     
+      setEmployee(employee);
       setIsAuthenticated(true);
       localStorage.setItem("token", token);
     } catch (error) {
@@ -35,10 +34,10 @@ export const UserProvider = ({ children }) => {
   const logout = () => {
     localStorage.removeItem("token");
     setIsAuthenticated(false);
-    setUser({});
-    navigate("/auth/login", {
-      replace: true,
-    });
+    setEmployee({});
+    // navigate("/auth/login", {
+    //   replace: true,
+    // });
   };
 
   useEffect(() => {
@@ -48,8 +47,8 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, logout, setUser, isAuthenticated, setIsAuthenticated, isLoading, setIsLoading }}>
+    <EmployeeContext.Provider value={{ employees, setEmployees,employee, logout, setEmployee, isAuthenticated, setIsAuthenticated, isLoading, setIsLoading }}>
       {children}
-    </UserContext.Provider>
+    </EmployeeContext.Provider>
   );
 };

@@ -1,10 +1,10 @@
 import { useContext } from "react";
-import { UserContext } from "../context/User/UserContext";
+import { EmployeeContext } from "../context/Employees/EmployeeContext";
 import { Navigate } from "react-router-dom";
 import { Loader } from "../ui";
 
 export const PrivateRoute = ({ children }) => {
-  const { isAuthenticated,isLoading } = useContext(UserContext);
+  const { isAuthenticated,isLoading } = useContext(EmployeeContext);
 
   if (isLoading) {
     return <Loader/>;  

@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import axios from "../../helpers/fetchApi";
-import { UserContext } from "../../context/User/UserContext";
+import { EmployeeContext } from "../../context/Employees/EmployeeContext";
 import { useNavigate } from "react-router-dom";
 
 export const useAuth = () => {
-  const { setUser, setIsAuthenticated, setIsLoading } = useContext(UserContext);
+  const { setEmployee, setIsAuthenticated, setIsLoading } = useContext(EmployeeContext);
   const navigate = useNavigate();
 
   const Login = async ({ username, password }) => {
@@ -14,11 +14,11 @@ export const useAuth = () => {
         username,
         password,
       });
-      
+
       const { employee, token } = response.data;
-      localStorage.setItem("token",token);
+      localStorage.setItem("token", token);
       setIsAuthenticated(true);
-      setUser(employee);
+      setEmployee(employee);
     } catch (error) {
       const errorInfo = error.response.data?.msg || error.response.data?.errors?.msg || error?.message;
       alert(errorInfo);
@@ -27,21 +27,21 @@ export const useAuth = () => {
     }
   };
 
-  const Signup = async ({ name, surname, username, mail, password, repeatPassword }) => {
+  const Signup = async ({ name, join_date, salary, username, password,role_id }) => {
     try {
       setIsLoading(true);
-      await axios.post("/auth/singup", {
+      await axios.post("/employee", {
         name,
-        surname,
+        join_date,
+        salary,
         username,
-        mail,
         password,
-        repeatPassword,
+        role_id
       });
-      alert("Registro exitoso");
-      navigate("/login");
+      navigate("/auth/login");
     } catch (error) {
-      const errorInfo = error.response.data?.msg || error.response.data?.errors?.msg || error?.message;
+      const errorInfo = error.response.data?.msg || error.response.data?.error || error?.message;
+      
       alert(errorInfo);
     } finally {
       setIsLoading(false);

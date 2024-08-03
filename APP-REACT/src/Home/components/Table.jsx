@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRequests } from "../hooks/useRequests";
-import { getEmployees } from "../helpers/getEmployees";
+import { getEmployees } from "../helpers/getEmployeesInfo";
 
 export const Table = ({ role_id, handleDeleteRequest, requests }) => {
   const [filters, setFilters] = useState({ code: "", summary: "", description: "", employee: 0 });
@@ -10,16 +10,16 @@ export const Table = ({ role_id, handleDeleteRequest, requests }) => {
 
   const onInputChange = async ({ target }) => {
     const { name, value } = target;
-console.log({ name, value } );
 
     setFilters((prevFilters) => {
       const updatedFilters = { ...prevFilters, [name]: value };
       const filtersToSend = Object.entries(updatedFilters)
-        .filter(([key, val]) => val !== "" && val != null && val !== 0 && val !== '0')
+        .filter(([key, val]) => val !== "" && val != null && val !== 0 && val !== "0")
         .reduce((acc, [key, val]) => {
           acc[key] = val;
           return acc;
         }, {});
+        
       getRequests(1, filtersToSend);
 
       return updatedFilters;
@@ -30,11 +30,11 @@ console.log({ name, value } );
     const response = await getEmployees();
     const { employees } = response.data;
     setEmployees(employees);
-    
   };
 
   useEffect(() => {
     handleGetEmployee();
+    
   }, []);
 
   return (
@@ -46,7 +46,7 @@ console.log({ name, value } );
           <th scope="col">Descripcion</th>
           <th scope="col">Resumen</th>
           <th scope="col">Empleado</th>
-          {role_id === 1 || <th scope="col">Eliminar</th>}
+          <th scope="col">{role_id === 2 ? "Eliminar" : null}</th>
         </tr>
         <tr>
           <th scope="col"></th>
@@ -56,27 +56,31 @@ console.log({ name, value } );
           <th scope="col">
             <input
               type="text"
-              name="summary"
+              name="description"
               className="form-control"
-              placeholder="Buscar por descripcion"
-              value={summary}
+              placeholder="Buscar por description"
+              value={description}
               onChange={onInputChange}
             />
           </th>
           <th scope="col">
             <input
               type="text"
-              name="description"
+              name="summary"
               className="form-control"
               placeholder="Buscar por resumen"
-              value={description}
+              value={summary}
               onChange={onInputChange}
             />
           </th>
           <th scope="col">
-            <select className="form-select" name="employee" value={employee}  onChange={onInputChange}>
-              <option value={0} >Seleccione un empleado</option>
-             {employees.map((item,i)=>( <option value={item.id} key={i} >{item.name}</option>))}
+            <select className="form-select" name="employee" value={employee} onChange={onInputChange}>
+              <option value={0}>Todos</option>
+              {employees.map((item, i) => (
+                <option value={item.id} key={i}>
+                  {item.name}
+                </option>
+              ))}
             </select>
           </th>
           <th scope="col"></th>
@@ -90,13 +94,13 @@ console.log({ name, value } );
             <td>{item.description}</td>
             <td>{item.summary}</td>
             <td>{item.Employee.name}</td>
-            {role_id === 1 || (
-              <td>
+            <td>
+              {role_id == 2 ? (
                 <button className="btn btn-danger" onClick={() => handleDeleteRequest(item.id)}>
                   Eliminar
                 </button>
-              </td>
-            )}
+              ) : null}
+            </td>
           </tr>
         ))}
       </tbody>

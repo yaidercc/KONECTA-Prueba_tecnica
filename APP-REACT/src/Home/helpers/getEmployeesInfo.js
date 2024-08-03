@@ -4,3 +4,5 @@ export const getEmployees = async () => axios.get("employee/getAllEmployees",{
         "x-token": localStorage.getItem("token")
     }
 });
+
+export const getRoles = async () => axios.get("employee/getRoles");

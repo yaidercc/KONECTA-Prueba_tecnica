@@ -30,7 +30,7 @@ class Server {
     this.app.use(cors({ origin: "http://localhost:5173", credentials: true }));
     this.app.use(express.json());
     this.app.use(hemlet());
-    // V1SwaggerDocs(this.app, this.port);
+    V1SwaggerDocs(this.app, this.port);
   }
 
   async connectDB() {
@@ -48,7 +48,7 @@ class Server {
 
   async createRoles() {
     try {
-      const roles = ["employee", "admin"];
+      const roles = ["Empleado", "Administrador"];
 
       for (const role of roles) {
         await Roles.findOrCreate({
