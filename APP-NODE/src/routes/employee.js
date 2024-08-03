@@ -10,7 +10,8 @@ router.post("/", [
     check("join_date", "La fecha de ingreso es obligatoria").isDate(),
     check("join_date", "La fecha de ingreso es obligatoria").not().isEmpty(),
     check("salary", "El salario es obligatorio").not().isEmpty(),
-    check("role_id", "El rol es obligatorio").not().isEmpty(),
+    check("username", "el usuario es obligatorio").not().isEmpty(),
+    check("password", "la contraseña es obligatoria").not().isEmpty(),
     validateFields
 ], employeeControllers.createEmployee);
 

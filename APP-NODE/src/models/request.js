@@ -25,7 +25,9 @@ const Requests = sequelize.define("Request", {
       model: Employee,
       key: "id",
     },
+    
     allowNull: false,
+    onDelete: "CASCADE"
   },
 });
 

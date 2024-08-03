@@ -1,13 +1,17 @@
+const authServices = require("../services/auth");
 const employeeServices = require("../services/employee");
-
+const bycryptjs = require("bcryptjs");
 const employee = {};
 module.exports = employee;
 
 employee.createEmployee = async (req, res) => {
   try {
-    const { name, join_date, salary, role_id } = req.body;
+    const { name, join_date, salary, role_id=1, username, password } = req.body;
 
-    await employeeServices.createEmployee({ name, join_date, salary, role_id });
+    const salt = bycryptjs.genSaltSync();
+    const encriptedPassword = bycryptjs.hashSync(password, salt);
+
+    await employeeServices.createEmployee({ name, join_date, salary, role_id, username, password: encriptedPassword });
 
     return res.json({
       success: true,
@@ -17,11 +21,10 @@ employee.createEmployee = async (req, res) => {
     console.log(error);
     return res.status(500).json({
       success: false,
-       error: error.message,
+      error: error.message,
     });
   }
 };
-
 
 employee.getAllEmployees = async (req, res) => {
   try {
@@ -35,7 +38,7 @@ employee.getAllEmployees = async (req, res) => {
     console.log(error);
     return res.status(500).json({
       success: false,
-       error: error.message,
+      error: error.message,
     });
   }
 };

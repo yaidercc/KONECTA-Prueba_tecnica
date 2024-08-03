@@ -10,6 +10,7 @@ export const Table = ({ role_id, handleDeleteRequest, requests }) => {
 
   const onInputChange = async ({ target }) => {
     const { name, value } = target;
+console.log({ name, value });
 
     setFilters((prevFilters) => {
       const updatedFilters = { ...prevFilters, [name]: value };
@@ -19,6 +20,7 @@ export const Table = ({ role_id, handleDeleteRequest, requests }) => {
           acc[key] = val;
           return acc;
         }, {});
+        console.log(filtersToSend);
         
       getRequests(1, filtersToSend);
 
@@ -56,20 +58,20 @@ export const Table = ({ role_id, handleDeleteRequest, requests }) => {
           <th scope="col">
             <input
               type="text"
-              name="summary"
+              name="description"
               className="form-control"
-              placeholder="Buscar por descripcion"
-              value={summary}
+              placeholder="Buscar por description"
+              value={description}
               onChange={onInputChange}
             />
           </th>
           <th scope="col">
             <input
               type="text"
-              name="description"
+              name="summary"
               className="form-control"
               placeholder="Buscar por resumen"
-              value={description}
+              value={summary}
               onChange={onInputChange}
             />
           </th>
