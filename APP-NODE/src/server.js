@@ -48,7 +48,7 @@ class Server {
 
   async createRoles() {
     try {
-      const roles = ["employee", "admin"];
+      const roles = ["Empleado", "Administrador"];
 
       for (const role of roles) {
         await Roles.findOrCreate({

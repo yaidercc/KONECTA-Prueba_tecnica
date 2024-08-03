@@ -20,7 +20,7 @@ employeeServices.createEmployee = async (EmployeeInfo) => {
       throw new Error("El nombre de usuario ya existe");
     }
 
-    return await employeeModel.create(EmployeeInfo);
+    return employeeModel.create(EmployeeInfo);
   } catch (error) {
     throw error;
   }
@@ -28,9 +28,27 @@ employeeServices.createEmployee = async (EmployeeInfo) => {
 
 employeeServices.getEmployee = async (id) => await employeeModel.findByPk(id);
 
-employeeServices.getAllEmployees = async () => await employeeModel.findAll({
-  include:{
-    model: roleModel,
-    attributes: ["name"]
-  }
+employeeServices.getRoles = async () => await roleModel.findAll({
+  attributes:["id","name"]
 });
+
+employeeServices.deleteEmployee = async (id) =>{
+  const findEmployee = await employeeModel.findByPk(id);
+  if (!findEmployee) {
+    throw new Error("El empleado no existe");
+  }
+  return employeeModel.destroy({
+    where: {
+      id,
+    },
+  });
+}
+  
+
+employeeServices.getAllEmployees = async () =>
+  await employeeModel.findAll({
+    include: {
+      model: roleModel,
+      attributes: ["name"],
+    },
+  });

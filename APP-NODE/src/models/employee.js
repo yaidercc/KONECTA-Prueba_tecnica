@@ -35,6 +35,7 @@ const Employee = sequelize.define("Employee", {
       model: Role,
       key: "id",
     },
+    onDelete:"CASCADE",
     allowNull: false,
   },
 });

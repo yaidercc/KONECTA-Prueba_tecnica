@@ -3,6 +3,7 @@ const { check } = require("express-validator");
 const employeeControllers = require("../controllers/employee");
 const { validateFields } = require("../middlewares");
 const validateJWT = require("../middlewares/validateJWT");
+const isAdmin = require("../middlewares/isAdmin");
 
 
 router.post("/", [
@@ -15,12 +16,19 @@ router.post("/", [
     validateFields
 ], employeeControllers.createEmployee);
 
-
-
 router.get("/getAllEmployees", [
     validateJWT,
     validateFields
 ], employeeControllers.getAllEmployees);
+
+router.delete("/:id",[
+    validateJWT,
+    validateFields,
+    isAdmin,
+    validateFields
+],employeeControllers.deleteEmployee)
+
+router.get("/getRoles", employeeControllers.getRoles)
 
 
 
