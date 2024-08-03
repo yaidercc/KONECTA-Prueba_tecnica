@@ -1,4 +1,4 @@
-import { UserProvider } from "./context/UserProvider";
+import { UserProvider } from "./context/User/UserProvider";
 import { AppRouter } from "./router/AppRouter";
 
 export const App = () => {

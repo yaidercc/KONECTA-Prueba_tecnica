@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { UserContext } from "./UserContext";
-import axios from "../helpers/fetchApi";
+import axios from "../../helpers/fetchApi";
 import { useNavigate } from "react-router-dom";
 
 export const UserProvider = ({ children }) => {
@@ -12,7 +12,7 @@ export const UserProvider = ({ children }) => {
 
   const validateAuthentication = async () => {
     try {
-      setIsLoading(true)
+      setIsLoading(true);
       const response = await axios.get("auth", {
         headers: {
           "x-token": localStorage.getItem("token"),
@@ -42,15 +42,14 @@ export const UserProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    
     const getJWT = localStorage.getItem("token");
-    console.log(getJWT);
-    
     if (getJWT) validateAuthentication();
     else logout();
   }, []);
 
   return (
-    <UserContext.Provider value={{ user,logout, setUser, isAuthenticated, setIsAuthenticated, isLoading, setIsLoading }}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ user, logout, setUser, isAuthenticated, setIsAuthenticated, isLoading, setIsLoading }}>
+      {children}
+    </UserContext.Provider>
   );
 };

@@ -69,7 +69,7 @@ export const Login = () => {
           <div className="text-danger">{getErrorMessage("password")}</div>
         </div>
         <div className="d-flex align-center justify-content-center">
-          <button type="submit" className="btn bg-success text-light" type="submit">
+          <button className="btn bg-success text-light" type="submit">
             Ingresar
           </button>
         </div>

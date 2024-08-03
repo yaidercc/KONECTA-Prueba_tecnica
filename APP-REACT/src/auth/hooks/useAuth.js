@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import axios from "../../helpers/fetchApi";
-import { UserContext } from "../../context/UserContext";
+import { UserContext } from "../../context/User/UserContext";
 import { useNavigate } from "react-router-dom";
 
 export const useAuth = () => {
