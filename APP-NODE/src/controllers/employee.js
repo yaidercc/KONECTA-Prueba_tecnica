@@ -1,13 +1,17 @@
+const authServices = require("../services/auth");
 const employeeServices = require("../services/employee");
-
+const bycryptjs = require("bcryptjs");
 const employee = {};
 module.exports = employee;
 
 employee.createEmployee = async (req, res) => {
   try {
-    const { name, join_date, salary, role_id } = req.body;
+    const { name, join_date, salary, role_id=1, username, password } = req.body;
 
-    await employeeServices.createEmployee({ name, join_date, salary, role_id });
+    const salt = bycryptjs.genSaltSync();
+    const encriptedPassword = bycryptjs.hashSync(password, salt);
+
+    await employeeServices.createEmployee({ name, join_date, salary, role_id, username, password: encriptedPassword });
 
     return res.json({
       success: true,
@@ -17,26 +21,24 @@ employee.createEmployee = async (req, res) => {
     console.log(error);
     return res.status(500).json({
       success: false,
-       error: error.message,
+      error: error.message,
     });
   }
 };
 
-employee.getEmployee = async (req, res) => {
+employee.getAllEmployees = async (req, res) => {
   try {
-    const { id } = req.params;
-
-    const employee = await employeeServices.getEmployee(id);
+    const employees = await employeeServices.getAllEmployees();
 
     return res.json({
       success: true,
-      employee: employee || "Empleado no encontrado",
+      employees,
     });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
       success: false,
-       error: error.message,
+      error: error.message,
     });
   }
 };

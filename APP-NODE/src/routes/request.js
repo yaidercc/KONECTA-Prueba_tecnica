@@ -12,8 +12,6 @@ router.post(
   [
     validateJWT,
     validateFields,
-    isAdmin,
-    validateFields,
     check("code", "el codigo de la solicitud es incorrecto").not().isEmpty(),
     check("description", "la descripcion de la solicitud es incorrecta").not().isEmpty(),
     check("summary", "el resumen de la solicitud es incorrecto").not().isEmpty(),

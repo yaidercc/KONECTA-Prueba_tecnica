@@ -1,42 +1,14 @@
-const authModel = require("../models/auth");
+const employeeModel = require("../models/employee");
 const authServices = {};
 module.exports = authServices;
 
-authServices.createEmployeeLogin = async (employeeLoginInfo) => {
-  try {
-    const findEmployeeLoginById = await authModel.findAll({
-      where: {
-        user_id: employeeLoginInfo.user_id,
-      },
-    });
-
-    if (findEmployeeLoginById.length > 0) {
-      throw new Error("El empleado ya tiene informacion de inicio de sesion")
-    }
-
-    const findEmployeeLoginByUser = await authModel.findAll({
-      where: {
-        user_id: employeeLoginInfo.user_id,
-      },
-    });
-
-    if (findEmployeeLoginByUser.length > 0) {
-      throw new Error("El nombre de usuario ya existe")
-    }
-    
-    return await authModel.create(employeeLoginInfo);
-  } catch (error) {
-    throw error;
-  }
-};
-
 authServices.login = async (username) => {
   try {
-    return await authModel.findAll({
+    return await employeeModel.findAll({
       where: {
         username,
       },
-      attributes: ["id", "username", "password", "user_id"],
+      attributes: ["id", "username", "password","name","join_date","salary"],
     });
   } catch (error) {
     throw error;
