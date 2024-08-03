@@ -16,11 +16,13 @@ export const useAuth = () => {
       });
 
       const { employee, token } = response.data;
+      setEmployee(employee);
       localStorage.setItem("token", token);
       setIsAuthenticated(true);
-      setEmployee(employee);
+      console.log(employee);
+      
     } catch (error) {
-      const errorInfo = error.response.data?.msg || error.response.data?.errors?.msg || error?.message;
+      const errorInfo = error.response.data?.msg || error.response.data?.error || error?.message;
       alert(errorInfo);
     } finally {
       setIsLoading(false);
