@@ -26,7 +26,7 @@ Luego esperas a que todo ejecute y listo, entras al siguiente url: http://localh
 
 para ejecutar los tests debes ejecutar el siguiente comando en cada una de las carpetas de los proyectos:
 
-```npm run tests``
+``npm run tests``
 
 ## Mejores Prácticas
 
