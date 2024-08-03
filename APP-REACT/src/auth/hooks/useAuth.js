@@ -14,9 +14,9 @@ export const useAuth = () => {
         username,
         password,
       });
-      
+
       const { employee, token } = response.data;
-      localStorage.setItem("token",token);
+      localStorage.setItem("token", token);
       setIsAuthenticated(true);
       setUser(employee);
     } catch (error) {
@@ -27,19 +27,17 @@ export const useAuth = () => {
     }
   };
 
-  const Signup = async ({ name, surname, username, mail, password, repeatPassword }) => {
+  const Signup = async ({ name, join_date, salary, username, password }) => {
     try {
       setIsLoading(true);
-      await axios.post("/auth/singup", {
+      await axios.post("/auth/signin", {
         name,
-        surname,
+        join_date,
+        salary,
         username,
-        mail,
         password,
-        repeatPassword,
       });
-      alert("Registro exitoso");
-      navigate("/login");
+      navigate("/auth/login");
     } catch (error) {
       const errorInfo = error.response.data?.msg || error.response.data?.errors?.msg || error?.message;
       alert(errorInfo);

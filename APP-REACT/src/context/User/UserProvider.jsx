@@ -8,7 +8,6 @@ export const UserProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const navigate = useNavigate();
 
   const validateAuthentication = async () => {
     try {
@@ -36,9 +35,9 @@ export const UserProvider = ({ children }) => {
     localStorage.removeItem("token");
     setIsAuthenticated(false);
     setUser({});
-    navigate("/auth/login", {
-      replace: true,
-    });
+    // navigate("/auth/login", {
+    //   replace: true,
+    // });
   };
 
   useEffect(() => {

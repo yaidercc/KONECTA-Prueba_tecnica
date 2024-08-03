@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import { loginSchema } from "../../helpers/formValidators";
 import { useForm } from "../../hooks/useForm";
 import { useAuth } from "../hooks/useAuth";
@@ -73,6 +74,9 @@ export const Login = () => {
             Ingresar
           </button>
         </div>
+        <NavLink className="text-url" to="/auth/signin">
+          Registrate
+        </NavLink>
       </form>
     </div>
   );
