@@ -2,7 +2,7 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useRequests } from "../../../requests/hooks/useRequests";
-import { useForm } from "../../../auth/hooks/useForm";
+import { useForm } from "../../../hooks/useForm";
 
 export const ModalForm = () => {
   const [show, setShow] = useState(false);

@@ -7,9 +7,12 @@ export const useRequests = () => {
     getRequests();
   }, []);
 
-  const getRequests = async (page = 1) => {
+  const getRequests = async (page = 1, filters = {}) => {
     try {
-      const response = await axios.get(`request/${page}`, {
+      const filterQuery = Object.entries(filters)
+        .map(([key,value], i) => `${key}=${value}`)
+        .join("&");
+      const response = await axios.get(`request/${page}${filterQuery ? "/?" + filterQuery : ""}`, {
         headers: {
           "x-token": localStorage.getItem("token"),
         },
@@ -38,7 +41,7 @@ export const useRequests = () => {
           },
         }
       );
-      getRequests(localStorage.getItem("page"))
+      getRequests(localStorage.getItem("page"));
     } catch (error) {
       const errorInfo = error.response.data?.msg || error.response.data?.errors?.msg || error?.message;
       alert(errorInfo);
@@ -52,7 +55,7 @@ export const useRequests = () => {
           "x-token": localStorage.getItem("token"),
         },
       });
-      getRequests(localStorage.getItem("page"))
+      getRequests(localStorage.getItem("page"));
     } catch (error) {
       const errorInfo = error.response.data?.msg || error.response.data?.errors?.msg || error?.message;
       alert(errorInfo);

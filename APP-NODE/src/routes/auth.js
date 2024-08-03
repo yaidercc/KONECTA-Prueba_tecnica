@@ -22,4 +22,5 @@ router.post("/login", [
 ], authControllers.login);
 
 router.get("/",validateJWT,authControllers.renewToken)
+
 module.exports = router;

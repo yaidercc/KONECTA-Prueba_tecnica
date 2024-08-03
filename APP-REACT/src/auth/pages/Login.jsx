@@ -1,6 +1,6 @@
 import { loginSchema } from "../../helpers/formValidators";
+import { useForm } from "../../hooks/useForm";
 import { useAuth } from "../hooks/useAuth";
-import { useForm } from "../hooks/useForm";
 
 export const Login = () => {
   const { username, password, onInputChange, getErrorMessage, handleSetErrors, setErrorFields, errorFields } = useForm({

@@ -16,7 +16,9 @@ export const Requests = () => {
   const countPages = Array.from({ length: pages }, (_, index) => index + 1);
 
   const handleDeleteRequest = (id) => {
-    deleteRequests(id);
+    if (confirm("¿Seguro que deseas borrar este elememto?")) {
+      deleteRequests(id);
+    }
   };
 
   const handleSetCurrentPage = async (page) => {
@@ -37,6 +39,7 @@ export const Requests = () => {
     const page = localStorage.getItem("page");
     handleSetCurrentPage(!page ? 1 : currentPage);
   }, [currentPage]);
+  
   return (
     <div>
       <Navbar nameUser={user.name} logout={logout} />

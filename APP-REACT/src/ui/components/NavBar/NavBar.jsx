@@ -1,8 +1,6 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import { useAuth } from "../../../auth/hooks/useAuth";
+import { Link } from "react-router-dom";
 
 export const Navbar = ({ nameUser,logout }) => {
-  const navigate = useNavigate();
   return (
     <nav className="navbar navbar-expand-sm navbar-dark bg-dark p-3">
       <Link className="navbar-brand" to="/">
