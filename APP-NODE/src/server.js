@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const sequelize = require("../src/config/database");
 const hemlet = require("helmet");
-require("colors");
 const database = require("../src/config/database");
 const Roles = require("./models/roles");
 const { swaggerDocs: V1SwaggerDocs } = require("./config/swagger");
@@ -36,13 +35,13 @@ class Server {
   async connectDB() {
     try {
       await database.authenticate();
-      console.log("-> ".green + "Conexion exitosa a la BD");
+      console.log("-> " + "Conexion exitosa a la BD");
       await sequelize.sync();
 
       // Funcion para quemar los roles en la tabla
       this.createRoles();
     } catch (error) {
-      console.log("X ".red + "Error al conectarse a la BD: ".red, error);
+      console.log("X " + "Error al conectarse a la BD: ", error);
     }
   }
 
@@ -57,7 +56,7 @@ class Server {
         });
       }
     } catch (error) {
-      console.error("X ".red + "Error al crear roles: ".red, error);
+      console.error("X " + "Error al crear roles: ", error);
     }
   }
 
@@ -70,7 +69,7 @@ class Server {
   listen() {
     if (process.env.NODE_ENV !== "test") {
       this.app.listen(this.port, () => {
-        console.log("-> ".green + `Conectado en el puerto: ${this.port}`);
+        console.log("-> " + `Conectado en el puerto: ${this.port}`);
       });
     } else {
       console.log("Modo de pruebas");
