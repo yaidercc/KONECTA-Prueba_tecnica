@@ -2,16 +2,20 @@ import { signupSchema } from "../../helpers/formValidators";
 import { useAuth } from "../hooks/useAuth";
 import { useForm } from "../../hooks/useForm";
 import { NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getRoles } from "../../Home/helpers/getEmployeesInfo";
 
 export const SignIn = () => {
-  const { name, join_date, salary, username, password, repeat_password, onInputChange, handleSetErrors, getErrorMessage } = useForm({
+  const { name, join_date, salary, username, password, repeat_password, role_id, onInputChange, handleSetErrors, getErrorMessage } = useForm({
     name: "",
     join_date: "",
     salary: "",
     username: "",
     password: "",
     repeat_password: "",
+    role_id: 0,
   });
+  const [roles, setRoles] = useState([]);
 
   const { Signup } = useAuth();
   const submitForm = async (event) => {
@@ -25,6 +29,7 @@ export const SignIn = () => {
           username,
           password,
           repeat_password,
+          role_id,
         },
         { abortEarly: false }
       );
@@ -35,12 +40,25 @@ export const SignIn = () => {
         salary,
         username,
         password,
+        role_id,
       });
     } catch (error) {
       if (error.name === "ValidationError") handleSetErrors(error.inner);
       else throw error;
     }
   };
+
+  const handleGetRoles = async () => {
+    const response = await getRoles();
+    console.log(response);
+    const { roles } = response.data;
+    
+    setRoles(roles);
+  };
+
+  useEffect(() => {
+    handleGetRoles();
+  }, []);
   return (
     <div className="signin container-form">
       <form className="signin__form bg-light" onSubmit={submitForm}>
@@ -73,6 +91,22 @@ export const SignIn = () => {
             placeholder="Ingrese su salario"
           />
           <div className="text-danger">{getErrorMessage("salary")}</div>
+        </div>
+        <div className="mb-3">
+          <label htmlFor="salary" className="form-label">
+            Tipo usuario
+          </label>
+          <select className="form-select" name="role_id" value={role_id} onChange={onInputChange}>
+            <option value={0} disabled>
+              Seleccione un rol
+            </option>
+            {roles.map((item, i) => (
+              <option value={item.id} key={i}>
+                {item.name}
+              </option>
+            ))}
+          </select>
+          <div className="text-danger">{getErrorMessage("role_id")}</div>
         </div>
         <div className="mb-3">
           <label htmlFor="username" className="form-label">
@@ -127,7 +161,7 @@ export const SignIn = () => {
           </button>
         </div>
 
-        <NavLink className="text-url" to="/auth/signin">
+        <NavLink className="text-url" to="/auth/login">
           Login
         </NavLink>
       </form>

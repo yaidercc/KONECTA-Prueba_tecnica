@@ -27,7 +27,7 @@ export const useAuth = () => {
     }
   };
 
-  const Signup = async ({ name, join_date, salary, username, password }) => {
+  const Signup = async ({ name, join_date, salary, username, password,role_id }) => {
     try {
       setIsLoading(true);
       await axios.post("/employee", {
@@ -36,10 +36,12 @@ export const useAuth = () => {
         salary,
         username,
         password,
+        role_id
       });
       navigate("/auth/login");
     } catch (error) {
-      const errorInfo = error.response.data?.msg || error.response.data?.errors?.msg || error?.message;
+      const errorInfo = error.response.data?.msg || error.response.data?.error || error?.message;
+      
       alert(errorInfo);
     } finally {
       setIsLoading(false);

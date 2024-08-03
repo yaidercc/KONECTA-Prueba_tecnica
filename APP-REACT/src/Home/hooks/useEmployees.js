@@ -18,7 +18,6 @@ export const useEmployees = () => {
       });
 
       const { employees } = response.data;
-      console.log(response.data);
       
       setEmployees(employees);
     } catch (error) {
@@ -26,7 +25,22 @@ export const useEmployees = () => {
       alert(errorInfo);
     }
   };
+  const deleteEmployee = async (id) => {
+    try {
+      await axios.delete(`employee/${id}`,{
+        headers:{
+          "x-token": localStorage.getItem("token")
+        }
+      });
+      
+      await getEmployees()
+    } catch (error) {
+      const errorInfo = error.response.data?.msg || error.response.data?.errors?.msg || error?.message;
+      alert(errorInfo);
+    }
+  };
   return {
     getEmployees,
+    deleteEmployee
   };
 };

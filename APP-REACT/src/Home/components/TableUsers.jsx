@@ -2,9 +2,18 @@ import { useContext  } from "react";
 import { EmployeeContext } from "../../context/Employees/EmployeeContext";
 import { useEmployees } from "../hooks/useEmployees";
 
-export const TableUsers = ({ handleDeleteEmployee, handleUpdateEmployee }) => {
+export const TableUsers = () => {
   const {employees,employee} = useContext(EmployeeContext);
-  const {getEmployees} = useEmployees()
+  const {getEmployees,deleteEmployee} = useEmployees()
+
+  const handleEditEmployee = () =>{
+    
+  }
+  const handleDeleteEmployee = (id) =>{
+    if(confirm("Estas seguro que deseas eliminar este usuario?")){
+      deleteEmployee(id)
+    }
+  }
 
   return (
     <table className="table">
@@ -30,14 +39,14 @@ export const TableUsers = ({ handleDeleteEmployee, handleUpdateEmployee }) => {
             <td>{item.Role.name}</td>
             <td>
               {employee.role_id == 2 ? (
-                <button className="btn btn-primary" onClick={() => handleDeleteUser(item.id)}>
+                <button className="btn btn-primary" onClick={() => handleEditEmployee(item.id)}>
                   Editar
                 </button>
               ) : null}
             </td>
             <td>
-              {employee.role_id == 2 ? (
-                <button className="btn btn-danger" onClick={() => handleUpdateUser(item.id)}>
+              {employee.role_id == 2 && item.id !== employee.id ? (
+                <button className="btn btn-danger" onClick={() => handleDeleteEmployee(item.id)}>
                   Eliminar
                 </button>
               ) : null}

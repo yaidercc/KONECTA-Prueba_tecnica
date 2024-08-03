@@ -10,6 +10,7 @@ export const signupSchema = yup.object().shape({
   join_date: yup.date().required("La fecha de ingreso es obligatoria").typeError("La fecha de ingreso debe ser una fecha válida"),  
   salary: yup.number().positive("El salario debe ser un número positivo").typeError("El salario es obligatorio"),
   username: yup.string().required("El nombre de usuario es obligatorio"),  
+  role_id: yup.number().positive("El rol debe ser empleado o administrador").typeError("La fecha de ingreso debe ser una fecha válida"), 
   password: yup
     .string()
     .min(8, "La contraseña debe tener al menos 8 caracteres")
