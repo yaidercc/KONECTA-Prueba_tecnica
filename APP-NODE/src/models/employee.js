@@ -35,11 +35,17 @@ const Employee = sequelize.define("Employee", {
       model: Role,
       key: "id",
     },
-    onDelete:"CASCADE",
+    onDelete: "CASCADE",
     allowNull: false,
   },
 });
 
-Employee.belongsTo(Role, { foreignKey: "role_id" });
+Employee.associate = (models) => {
+  Employee.belongsTo(models.Role, {
+      foreignKey: "userID"
+  });
+}
+
+
 
 module.exports = Employee;
