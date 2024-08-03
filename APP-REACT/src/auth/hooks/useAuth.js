@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import axios from "../../helpers/fetchApi";
-import { UserContext } from "../../context/User/UserContext";
+import { EmployeeContext } from "../../context/Employees/EmployeeContext";
 import { useNavigate } from "react-router-dom";
 
 export const useAuth = () => {
-  const { setUser, setIsAuthenticated, setIsLoading } = useContext(UserContext);
+  const { setEmployee, setIsAuthenticated, setIsLoading } = useContext(EmployeeContext);
   const navigate = useNavigate();
 
   const Login = async ({ username, password }) => {
@@ -18,7 +18,7 @@ export const useAuth = () => {
       const { employee, token } = response.data;
       localStorage.setItem("token", token);
       setIsAuthenticated(true);
-      setUser(employee);
+      setEmployee(employee);
     } catch (error) {
       const errorInfo = error.response.data?.msg || error.response.data?.errors?.msg || error?.message;
       alert(errorInfo);

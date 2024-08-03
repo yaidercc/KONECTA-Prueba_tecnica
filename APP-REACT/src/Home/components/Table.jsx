@@ -10,7 +10,6 @@ export const Table = ({ role_id, handleDeleteRequest, requests }) => {
 
   const onInputChange = async ({ target }) => {
     const { name, value } = target;
-console.log({ name, value });
 
     setFilters((prevFilters) => {
       const updatedFilters = { ...prevFilters, [name]: value };
@@ -20,7 +19,6 @@ console.log({ name, value });
           acc[key] = val;
           return acc;
         }, {});
-        console.log(filtersToSend);
         
       getRequests(1, filtersToSend);
 

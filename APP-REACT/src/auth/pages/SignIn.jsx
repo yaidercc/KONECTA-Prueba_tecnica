@@ -1,6 +1,7 @@
 import { signupSchema } from "../../helpers/formValidators";
 import { useAuth } from "../hooks/useAuth";
 import { useForm } from "../../hooks/useForm";
+import { NavLink } from "react-router-dom";
 
 export const SignIn = () => {
   const { name, join_date, salary, username, password, repeat_password, onInputChange, handleSetErrors, getErrorMessage } = useForm({
@@ -125,6 +126,10 @@ export const SignIn = () => {
             Ingresar
           </button>
         </div>
+
+        <NavLink className="text-url" to="/auth/signin">
+          Login
+        </NavLink>
       </form>
     </div>
   );

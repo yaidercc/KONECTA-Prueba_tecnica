@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../../context/User/UserContext";
-import { Navbar } from "../../ui/components/NavBar/NavBar";
+import { EmployeeContext } from "../../context/Employees/EmployeeContext";
 import { useRequests } from "../hooks/useRequests";
 import { RequestContext } from "../../context/Requests/RequestContext";
 import { Pagination } from "../components";
@@ -9,7 +8,7 @@ import { ModalForm } from "../../ui/components/Modal/ModalForm";
 
 export const Requests = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const { user, logout } = useContext(UserContext);
+  const { employee } = useContext(EmployeeContext);
   const { requests: requestsObj } = useContext(RequestContext);
   const { requests, pages } = requestsObj;
   const { getRequests, deleteRequests } = useRequests();
@@ -42,12 +41,12 @@ export const Requests = () => {
   
   return (
     <div>
-      <Navbar nameUser={user.name} logout={logout} />
+      
 
       <h2 className="mt-3 ">Solicitudes</h2>
       <ModalForm />
       <hr />
-      <Table handleDeleteRequest={handleDeleteRequest} requests={requests} role_id={user.role_id} />
+      <Table handleDeleteRequest={handleDeleteRequest} requests={requests} role_id={employee.role_id} />
       <Pagination
         countPages={countPages}
         pages={pages}

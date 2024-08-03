@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom";
-import { AuthRoutes } from "../auth/routes/AuthRoutes";
+import { AuthRoutes } from "../Auth/routes/AuthRoutes";
 import { PrivateRoute } from "../guards/PrivateRoute";
 import { PublicRoute } from "../guards/PublicRoute";
-import { RequestsRoutes } from "../requests/routes/RequestRoutes";
+import { HomeRoutes } from "../Home/routes/HomeRoutes";
 
 export const AppRouter = () => {
   return (
@@ -19,7 +19,7 @@ export const AppRouter = () => {
         path="/*"
         element={
           <PrivateRoute>
-            <RequestsRoutes />
+            <HomeRoutes />
           </PrivateRoute>
         }
       />
