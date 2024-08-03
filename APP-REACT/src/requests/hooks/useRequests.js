@@ -30,8 +30,8 @@ export const useRequests = () => {
           "x-token": localStorage.getItem("token"),
         },
       });
-      const newRequests = requests.filter((item) => item.id !== id);
-      setRequests(newRequests);
+      const newRequests = requests.requests.filter((item) => item.id !== id);
+      setRequests({...requests, requests: newRequests, });
     } catch (error) {
       const errorInfo = error.response.data?.msg || error.response.data?.errors?.msg || error?.message;
       alert(errorInfo);
