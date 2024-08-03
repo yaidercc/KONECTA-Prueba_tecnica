@@ -28,4 +28,9 @@ employeeServices.createEmployee = async (EmployeeInfo) => {
 
 employeeServices.getEmployee = async (id) => await employeeModel.findByPk(id);
 
-employeeServices.getAllEmployees = async () => await employeeModel.findAll();
+employeeServices.getAllEmployees = async () => await employeeModel.findAll({
+  include:{
+    model: roleModel,
+    attributes: ["name"]
+  }
+});
