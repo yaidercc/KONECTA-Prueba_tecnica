@@ -22,6 +22,12 @@ Iniciar la aplicacion:
 
 Luego esperas a que todo ejecute y listo, entras al siguiente url: http://localhost:5173
 
+## Inicar tests
+
+para ejecutar los tests debes ejecutar el siguiente comando en cada una de las carpetas de los proyectos:
+
+``npm run tests``
+
 ## Mejores Prácticas
 
 - Optimización de Imágenes Docker: Implementé un archivo .dockerignore para excluir archivos innecesarios durante la construcción de la imagen, reduciendo así su tamaño.
