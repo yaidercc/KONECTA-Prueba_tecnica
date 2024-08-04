@@ -30,9 +30,8 @@ const Requests = sequelize.define("Request", {
     onDelete: "CASCADE"
   },
 });
-Requests.associate = (models) => {
-  Requests.belongsTo(models.Employee, { foreignKey: "employee_id" })
-}
+Requests.belongsTo(Employee, { foreignKey: "employee_id" })
+
 
 
 module.exports = Requests;

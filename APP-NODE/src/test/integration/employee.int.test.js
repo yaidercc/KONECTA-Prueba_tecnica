@@ -1,4 +1,4 @@
-// Importaciones necesarias para las pruebas de integración
+
 const request = require("supertest");
 const app = require("../../app");
 const sequelize = require("../../config/database"); 
@@ -54,7 +54,7 @@ describe("Pruebas de integracion en el modulo de autenticacion", () => {
   
     const response = await request(app).post("/api/employee").send(employeeInfo);
     expect(response.status).toBe(200);
-    expect(response.body.success).toBeTruthy();  // Asegúrate de que tu endpoint devuelva un campo `success`
+    expect(response.body.success).toBeTruthy();  
   });
 
   test('Debe eliminar un empleado', async() => { 

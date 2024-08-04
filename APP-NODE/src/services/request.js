@@ -21,6 +21,7 @@ requestServices.getRequestsPages = (filters) =>
   });
 
 requestServices.createRequest = async (requestInfo) => {
+  
   const newRequest = await requestModel.create(requestInfo);
   return await requestModel.findByPk(newRequest.id, {
     include: {
