@@ -39,7 +39,6 @@ requestControllers.createRequest = async (req, res) => {
     const { body, employee } = req;
     const { code, description, summary } = body;
     const { id } = employee;
-
     const request = await requestServices.createRequest({ code, description, summary, employee_id: id });
 
     return res.json({

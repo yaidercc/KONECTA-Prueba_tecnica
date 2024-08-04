@@ -40,11 +40,10 @@ const Employee = sequelize.define("Employee", {
   },
 });
 
-Employee.associate = (models) => {
-  Employee.belongsTo(models.Role, {
-      foreignKey: "userID"
-  });
-}
+
+Employee.belongsTo(Role, {
+    foreignKey: "role_id"
+});
 
 
 

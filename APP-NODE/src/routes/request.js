@@ -9,8 +9,8 @@ const isAdmin = require("../middlewares/isAdmin");
  * @openapi
  * /api/requests/getRequests:
  *   post:
- *     summary: Loguear usuario
- *     description: Login con el usuario
+ *     summary: Obtener las solicitudes
+ *     description: Obtienen las solicitudes paginadas
  *     tags:
  *       - Solicitudes
  *     produces:
