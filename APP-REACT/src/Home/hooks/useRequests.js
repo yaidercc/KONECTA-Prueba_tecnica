@@ -21,7 +21,7 @@ export const useRequests = () => {
 
       setRequests(requests);
     } catch (error) {
-      const errorInfo = error.response.data?.msg || error.response.data?.errors?.msg || error?.message;
+      const errorInfo = error.response?.data?.msg || error.response?.data?.errors?.msg || error?.message;
       alert(errorInfo);
     }
   };

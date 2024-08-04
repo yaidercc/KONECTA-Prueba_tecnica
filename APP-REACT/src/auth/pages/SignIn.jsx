@@ -61,13 +61,13 @@ export const SignIn = () => {
   }, []);
   return (
     <div className="signin container-form">
-      <form className="signin__form bg-light" onSubmit={submitForm}>
+      <form aria-label="form" className="signin__form bg-light" onSubmit={submitForm}>
         <h2 className="mb-4 text-center">Registrarse</h2>
         <div className="mb-3">
           <label htmlFor="name" className="form-label">
             Nombre
           </label>
-          <input type="text" className="form-control" name="name" value={name} onChange={onInputChange} id="name" placeholder="Ingrese su usuario" />
+          <input type="text" className="form-control" name="name" value={name} onChange={onInputChange} id="name" placeholder="Ingrese su nombre" />
           <div className="text-danger">{getErrorMessage("name")}</div>
         </div>
         <div className="mb-3">

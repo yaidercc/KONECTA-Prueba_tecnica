@@ -35,13 +35,14 @@ export const Login = () => {
 
   return (
     <div className="login container-form">
-      <form className="login__form bg-light needs-validation" onSubmit={submitForm} noValidate>
+      <form aria-label="form" className="login__form bg-light needs-validation" onSubmit={submitForm} noValidate>
         <h2 className="mb-4 text-center">Iniciar Sesion</h2>
         <div className="mb-3">
           <label htmlFor="username" className="form-label">
             Nombre de usuario
           </label>
           <input
+          aria-label="username"
             type="text"
             className="form-control"
             name="username"
@@ -51,13 +52,14 @@ export const Login = () => {
             onChange={onInputChange}
             required
           />
-          <div className="text-danger">{getErrorMessage("username")}</div>
+          <p className="text-danger">{getErrorMessage("username")}</p>
         </div>
         <div className="mb-3">
           <label htmlFor="password" className="form-label">
             Contraseña
           </label>
           <input
+          aria-label="password"
             type="password"
             className="form-control"
             name="password"
@@ -67,7 +69,7 @@ export const Login = () => {
             onChange={onInputChange}
             required
           />
-          <div className="text-danger">{getErrorMessage("password")}</div>
+          <p className="text-danger">{getErrorMessage("password")}</p>
         </div>
         <div className="d-flex align-center justify-content-center">
           <button className="btn bg-success text-light" type="submit">

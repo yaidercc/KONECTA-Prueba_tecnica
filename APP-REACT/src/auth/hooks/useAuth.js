@@ -19,10 +19,8 @@ export const useAuth = () => {
       setEmployee(employee);
       localStorage.setItem("token", token);
       setIsAuthenticated(true);
-      console.log(employee);
-      
     } catch (error) {
-      const errorInfo = error.response.data?.msg || error.response.data?.error || error?.message;
+      const errorInfo = error.response?.data?.msg || error.response?.data?.error || error?.message;
       alert(errorInfo);
     } finally {
       setIsLoading(false);
