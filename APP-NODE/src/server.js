@@ -36,8 +36,7 @@ class Server {
     try {
       await database.authenticate();
       console.log("-> " + "Conexion exitosa a la BD");
-      await sequelize.sync();
-
+      await sequelize.sync({force:true});
       // Funcion para quemar los roles en la tabla
       this.createRoles();
     } catch (error) {
