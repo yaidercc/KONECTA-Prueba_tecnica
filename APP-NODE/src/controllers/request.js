@@ -17,12 +17,13 @@ requestControllers.getRequest = async (req, res) => {
     const offset = (page - 1) * 5;
     const requests = await requestServices.getRequests(offset, filters);
 
-    const pages = await requestServices.getRequestsPages(filters);
+    const documents = await requestServices.getRequestsPages(filters);
+    
     return res.json({
       success: true,
       requests: {
         requests,
-        pages: pages <= 5 ? 1 : Math.round(pages / 5),
+        pages:documents <= 5 ? 1 : Math.ceil(documents / 5)
       },
     });
   } catch (error) {
