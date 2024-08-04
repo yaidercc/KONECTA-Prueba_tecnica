@@ -61,7 +61,7 @@ export const SignIn = () => {
   }, []);
   return (
     <div className="signin container-form">
-      <form className="signin__form bg-light" onSubmit={submitForm}>
+      <form aria-label="form" className="signin__form bg-light" onSubmit={submitForm}>
         <h2 className="mb-4 text-center">Registrarse</h2>
         <div className="mb-3">
           <label htmlFor="name" className="form-label">
