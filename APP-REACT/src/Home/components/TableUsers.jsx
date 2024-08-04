@@ -1,8 +1,8 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { EmployeeContext } from "../../context/Employees/EmployeeContext";
-import { useEmployees } from "../hooks/useEmployees";
+import { useEmployees } from "../hooks";
 
-export const TableUsers = () => {
+const TableUsers = () => {
   const {employees,employee} = useContext(EmployeeContext);
   const {deleteEmployee} = useEmployees()
   const handleDeleteEmployee = (id) =>{
@@ -44,3 +44,5 @@ export const TableUsers = () => {
     </table>
   );
 };
+
+export default TableUsers

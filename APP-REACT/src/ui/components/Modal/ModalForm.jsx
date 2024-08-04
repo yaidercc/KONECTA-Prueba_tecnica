@@ -1,10 +1,10 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { useRequests } from "../../../Home/hooks/useRequests";
+import { useRequests } from "../../../Home/hooks";
 import { useForm } from "../../../hooks/useForm";
 
-export const ModalForm = () => {
+const ModalForm = () => {
   const [show, setShow] = useState(false);
   const { createRequests } = useRequests();
   const { code, description, summary, onInputChange, getErrorMessage, setErrorFields, errorFields,resetForm } = useForm({
@@ -115,3 +115,4 @@ export const ModalForm = () => {
     </>
   );
 };
+export default ModalForm;

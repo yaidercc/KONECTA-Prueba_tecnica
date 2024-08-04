@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { lazy, useContext, useEffect, useState } from "react";
 import { EmployeeContext } from "../../context/Employees/EmployeeContext";
-import { useRequests } from "../hooks/useRequests";
+import { useRequests } from "../hooks";
 import { RequestContext } from "../../context/Requests/RequestContext";
-import { Pagination } from "../components";
-import { Table } from "../components/Table";
-import { ModalForm } from "../../ui/components/Modal/ModalForm";
+const Pagination = lazy(() => import("../components/Pagination"));
+const Table = lazy(() => import("../components/Table"));
+const ModalForm = lazy(() => import("../../ui/components/Modal/ModalForm"));
 
 export const Requests = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,7 +23,6 @@ export const Requests = () => {
   const handleSetCurrentPage = async (page) => {
     setCurrentPage(page);
     localStorage.setItem("page", page);
-
     await getRequests(page);
   };
 
@@ -38,11 +37,9 @@ export const Requests = () => {
     const page = localStorage.getItem("page");
     handleSetCurrentPage(!page ? 1 : currentPage);
   }, [currentPage]);
-  
+
   return (
     <div>
-      
-
       <h2 className="mt-3 ">Solicitudes</h2>
       <ModalForm />
       <hr />

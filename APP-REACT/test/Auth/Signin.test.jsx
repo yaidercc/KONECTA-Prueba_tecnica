@@ -5,7 +5,7 @@ import { MemoryRouter } from "react-router-dom";
 
 describe('Pruebas en el componente de registro', () => { 
 
-  test("validar que este el texto de inicio de sesion", () => {
+  test("validar que este el texto de registro", () => {
     render(
       <MemoryRouter>
       <EmployeeContext.Provider value={{ employee: {}, setIsLoading: () => {} }}>

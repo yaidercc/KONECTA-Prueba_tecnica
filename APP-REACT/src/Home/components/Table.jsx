@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useRequests } from "../hooks/useRequests";
+import { useRequests } from "../hooks";
 import { getEmployees } from "../helpers/getEmployeesInfo";
 
-export const Table = ({ role_id, handleDeleteRequest, requests }) => {
+const Table = ({ role_id, handleDeleteRequest, requests }) => {
   const [filters, setFilters] = useState({ code: "", summary: "", description: "", employee: 0 });
   const [employees, setEmployees] = useState([]);
   const { code, summary, description, employee } = filters;
@@ -107,3 +107,6 @@ export const Table = ({ role_id, handleDeleteRequest, requests }) => {
     </table>
   );
 };
+
+
+export default Table
