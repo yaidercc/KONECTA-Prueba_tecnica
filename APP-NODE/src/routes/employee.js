@@ -7,14 +7,12 @@ const isAdmin = require("../middlewares/isAdmin");
 
 /**
  * @openapi
- * /api/employee/login:
+ * /api/employee/:
  *   post:
- *     summary: Loguear usuario
- *     description: Login con el usuario
+ *     summary: Crear un empleado
+ *     description: Crea un nuevo empleado con la información proporcionada, incluyendo nombre, fecha de incorporación, salario, nombre de usuario y contraseña.
  *     tags:
  *       - Empleados
- *     produces:
- *       - application/json
  *     requestBody:
  *       required: true
  *       content:
@@ -22,17 +20,34 @@ const isAdmin = require("../middlewares/isAdmin");
  *           schema:
  *             type: object
  *             properties:
+ *               name:
+ *                 type: string
+ *                 description: Nombre del empleado
+ *                 example: "Juan Pérez"
+ *               join_date:
+ *                 type: string
+ *                 format: date
+ *                 description: Fecha de incorporación del empleado
+ *                 example: "2024-08-04"
+ *               salary:
+ *                 type: integer
+ *                 description: Salario del empleado
+ *                 example: 50000
+ *               role_id:
+ *                 type: integer
+ *                 description: Rol del empleado
+ *                 example: 1
  *               username:
  *                 type: string
- *                 description: El correo electrónico del usuario
- *                 example: "user"
+ *                 description: Nombre de usuario del empleado
+ *                 example: "juanperez"
  *               password:
  *                 type: string
- *                 description: La contraseña del usuario
- *                 example: "password123"
+ *                 description: Contraseña del empleado
+ *                 example: "contraseñaSegura123"
  *     responses:
  *       200:
- *         description: Usuario logueado exitosamente
+ *         description: Empleado creado exitosamente
  *         content:
  *           application/json:
  *             schema:
@@ -43,9 +58,9 @@ const isAdmin = require("../middlewares/isAdmin");
  *                   description: Estado de la respuesta
  *                 msg:
  *                   type: string
- *                   description: Mensaje de la peticion
- *       400:
- *         description: Error al loguear usuario
+ *                   description: Mensaje de confirmación
+ *       500:
+ *         description: Error interno del servidor
  *         content:
  *           application/json:
  *             schema:
@@ -54,10 +69,11 @@ const isAdmin = require("../middlewares/isAdmin");
  *                 success:
  *                   type: boolean
  *                   description: Estado de la respuesta
- *                 errors:
- *                   type: object
- *                   description: Errores de la peticion
+ *                 error:
+ *                   type: string
+ *                   description: Descripción del error
  */
+
 router.post("/", [
     check("name", "El nombre es obligatorio").not().isEmpty(),
     check("join_date", "La fecha de ingreso es obligatoria").isDate(),
@@ -70,32 +86,31 @@ router.post("/", [
 
 /**
  * @openapi
+ * components:
+ *   securitySchemes:
+ *     TokenAuth:
+ *       type: apiKey
+ *       in: header
+ *       name: x-token
+ *   parameters:
+ *     TokenHeader:
+ *       name: x-token
+ *       in: header
+ *       required: true
+ *       schema:
+ *         type: string
+ *         description: Token de autenticación
  * /api/employee/getAllEmployees:
- *   post:
- *     summary: Loguear usuario
- *     description: Login con el usuario
+ *   get:
+ *     summary: Obtener todos los empleados
+ *     description: Recupera la lista completa de empleados en el sistema. Requiere autenticación mediante un token.
  *     tags:
  *       - Empleados
- *     produces:
- *       - application/json
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               username:
- *                 type: string
- *                 description: El correo electrónico del usuario
- *                 example: "user"
- *               password:
- *                 type: string
- *                 description: La contraseña del usuario
- *                 example: "password123"
+ *     parameters:
+ *       - $ref: '#/components/parameters/TokenHeader'
  *     responses:
  *       200:
- *         description: Usuario logueado exitosamente
+ *         description: Lista de empleados obtenida exitosamente
  *         content:
  *           application/json:
  *             schema:
@@ -104,23 +119,43 @@ router.post("/", [
  *                 success:
  *                   type: boolean
  *                   description: Estado de la respuesta
- *                 msg:
+ *                 employees:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                         description: ID del empleado
+ *                         example: 1
+ *                       name:
+ *                         type: string
+ *                         description: Nombre del empleado
+ *                         example: "Juan Pérez"
+ *                       join_date:
+ *                         type: string
+ *                         format: date
+ *                         description: Fecha de incorporación del empleado
+ *                         example: "2024-08-04"
+ *                       salary:
+ *                         type: integer
+ *                         description: Salario del empleado
+ *                         example: 50000
+ *       500:
+ *         description: Error interno del servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: Estado de la respuesta
+ *                 error:
  *                   type: string
- *                   description: Mensaje de la peticion
- *       400:
- *         description: Error al loguear usuario
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                   description: Estado de la respuesta
- *                 errors:
- *                   type: object
- *                   description: Errores de la peticion
+ *                   description: Descripción del error
  */
+
 router.get("/getAllEmployees", [
     validateJWT,
     validateFields
@@ -128,32 +163,38 @@ router.get("/getAllEmployees", [
 
 /**
  * @openapi
- * /api/employee/deleteUser:
- *   post:
- *     summary: Loguear usuario
- *     description: Login con el usuario
+ * components:
+ *   securitySchemes:
+ *     TokenAuth:
+ *       type: apiKey
+ *       in: header
+ *       name: x-token
+ *   parameters:
+ *     TokenHeader:
+ *       name: x-token
+ *       in: header
+ *       required: true
+ *       schema:
+ *         type: string
+ *         description: Token de autenticación
+ * /api/employee/{id}:
+ *   delete:
+ *     summary: Eliminar un empleado
+ *     description: Elimina un empleado del sistema usando su ID. Requiere autenticación mediante un token. No se puede eliminar el propio usuario.
  *     tags:
  *       - Empleados
- *     produces:
- *       - application/json
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               username:
- *                 type: string
- *                 description: El correo electrónico del usuario
- *                 example: "user"
- *               password:
- *                 type: string
- *                 description: La contraseña del usuario
- *                 example: "password123"
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: ID del empleado a eliminar
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           example: 1
+ *       - $ref: '#/components/parameters/TokenHeader'
  *     responses:
  *       200:
- *         description: Usuario logueado exitosamente
+ *         description: Empleado eliminado exitosamente
  *         content:
  *           application/json:
  *             schema:
@@ -164,9 +205,9 @@ router.get("/getAllEmployees", [
  *                   description: Estado de la respuesta
  *                 msg:
  *                   type: string
- *                   description: Mensaje de la peticion
+ *                   description: Mensaje de confirmación
  *       400:
- *         description: Error al loguear usuario
+ *         description: No puedes eliminarte a ti mismo
  *         content:
  *           application/json:
  *             schema:
@@ -175,9 +216,22 @@ router.get("/getAllEmployees", [
  *                 success:
  *                   type: boolean
  *                   description: Estado de la respuesta
- *                 errors:
- *                   type: object
- *                   description: Errores de la peticion
+ *                 error:
+ *                   type: string
+ *                   description: Descripción del error
+ *       500:
+ *         description: Error interno del servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: Estado de la respuesta
+ *                 error:
+ *                   type: string
+ *                   description: Descripción del error
  */
 router.delete("/:id",[
     validateJWT,
@@ -188,32 +242,16 @@ router.delete("/:id",[
 
 /**
  * @openapi
+
  * /api/employee/getRoles:
- *   post:
- *     summary: Loguear usuario
- *     description: Login con el usuario
+ *   get:
+ *     summary: Obtiene todos los roles
+ *     description: Recupera una lista de todos los roles disponibles en el sistema. Requiere autenticación mediante un token.
  *     tags:
  *       - Empleados
- *     produces:
- *       - application/json
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               username:
- *                 type: string
- *                 description: El correo electrónico del usuario
- *                 example: "user"
- *               password:
- *                 type: string
- *                 description: La contraseña del usuario
- *                 example: "password123"
  *     responses:
  *       200:
- *         description: Usuario logueado exitosamente
+ *         description: Roles obtenidos exitosamente
  *         content:
  *           application/json:
  *             schema:
@@ -222,23 +260,27 @@ router.delete("/:id",[
  *                 success:
  *                   type: boolean
  *                   description: Estado de la respuesta
- *                 msg:
+ *                 roles:
+ *                   type: array
+ *                   items:
+ *                     type: string
+ *                     description: Nombre de un rol
+ *                     example: "admin"
+ *       500:
+ *         description: Error interno del servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: Estado de la respuesta
+ *                 error:
  *                   type: string
- *                   description: Mensaje de la peticion
- *       400:
- *         description: Error al loguear usuario
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                   description: Estado de la respuesta
- *                 errors:
- *                   type: object
- *                   description: Errores de la peticion
+ *                   description: Descripción del error
  */
+
 router.get("/getRoles", employeeControllers.getRoles)
 
 

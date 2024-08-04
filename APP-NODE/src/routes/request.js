@@ -4,35 +4,63 @@ const requestControllers = require("../controllers/request");
 const validateFields = require("../middlewares/validateFields");
 const validateJWT = require("../middlewares/validateJWT");
 const isAdmin = require("../middlewares/isAdmin");
-
 /**
  * @openapi
- * /api/requests/getRequests:
- *   post:
+ * components:
+ *   securitySchemes:
+ *     TokenAuth:
+ *       type: apiKey
+ *       in: header
+ *       name: x-token
+ *   parameters:
+ *     TokenHeader:
+ *       name: x-token
+ *       in: header
+ *       required: true
+ *       schema:
+ *         type: string
+ *         description: Token de autenticación
+ * /api/request/{page}:
+ *   get:
  *     summary: Obtener las solicitudes
  *     description: Obtienen las solicitudes paginadas
  *     tags:
  *       - Solicitudes
+ *     parameters:
+ *       - name: page
+ *         in: path
+ *         description: Número de página para la paginación
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           example: 1
+ *       - $ref: '#/components/parameters/TokenHeader'
+ *     security:
+ *       - TokenAuth: []
  *     produces:
  *       - application/json
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               username:
- *                 type: string
- *                 description: El correo electrónico del usuario
- *                 example: "user"
- *               password:
- *                 type: string
- *                 description: La contraseña del usuario
- *                 example: "password123"
  *     responses:
  *       200:
- *         description: Usuario logueado exitosamente
+ *         description: Solicitudes obtenidas exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: Estado de la respuesta
+ *                 requests:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       requests:
+ *                         type: object
+ *                       pages:
+ *                         type: integer
+ *       400:
+ *         description: Error al obtener solicitudes
  *         content:
  *           application/json:
  *             schema:
@@ -43,9 +71,9 @@ const isAdmin = require("../middlewares/isAdmin");
  *                   description: Estado de la respuesta
  *                 msg:
  *                   type: string
- *                   description: Mensaje de la peticion
- *       400:
- *         description: Error al loguear usuario
+ *                   description: Errores de la petición
+ *       500:
+ *         description: Error interno del servidor
  *         content:
  *           application/json:
  *             schema:
@@ -54,22 +82,39 @@ const isAdmin = require("../middlewares/isAdmin");
  *                 success:
  *                   type: boolean
  *                   description: Estado de la respuesta
- *                 errors:
- *                   type: object
- *                   description: Errores de la peticion
+ *                 error:
+ *                   type: string
+ *                   description: Descripción del error
  */
+
+
+
 router.get("/:page", [validateJWT, validateFields], requestControllers.getRequest);
 
 /**
  * @openapi
- * /api/requests/createRequests:
+ * components:
+ *   securitySchemes:
+ *     TokenAuth:
+ *       type: apiKey
+ *       in: header
+ *       name: x-token
+ *   parameters:
+ *     TokenHeader:
+ *       name: x-token
+ *       in: header
+ *       required: true
+ *       schema:
+ *         type: string
+ *         description: Token de autenticación
+ * /api/request:
  *   post:
- *     summary: Loguear usuario
- *     description: Login con el usuario
+ *     summary: Crear una solicitud
+ *     description: Crea una solicitud con los datos ingresados por el empleado
  *     tags:
  *       - Solicitudes
- *     produces:
- *       - application/json
+ *     parameters:
+ *       - $ref: '#/components/parameters/TokenHeader'
  *     requestBody:
  *       required: true
  *       content:
@@ -77,17 +122,23 @@ router.get("/:page", [validateJWT, validateFields], requestControllers.getReques
  *           schema:
  *             type: object
  *             properties:
- *               username:
+ *               code:
  *                 type: string
- *                 description: El correo electrónico del usuario
- *                 example: "user"
- *               password:
+ *                 description: El código de la solicitud
+ *                 example: "RQ123"
+ *               description:
  *                 type: string
- *                 description: La contraseña del usuario
- *                 example: "password123"
+ *                 description: Descripción de la solicitud
+ *                 example: "Esta es la descripcion"
+ *               summary:
+ *                 type: string
+ *                 description: Resumen de la solicitud
+ *                 example: "Este es el resumen"
+ *     security:
+ *       - TokenAuth: []
  *     responses:
  *       200:
- *         description: Usuario logueado exitosamente
+ *         description: Solicitud creada exitosamente
  *         content:
  *           application/json:
  *             schema:
@@ -98,9 +149,9 @@ router.get("/:page", [validateJWT, validateFields], requestControllers.getReques
  *                   description: Estado de la respuesta
  *                 msg:
  *                   type: string
- *                   description: Mensaje de la peticion
- *       400:
- *         description: Error al loguear usuario
+ *                   description: Mensaje de la petición
+ *       500:
+ *         description: Error interno del servidor
  *         content:
  *           application/json:
  *             schema:
@@ -111,8 +162,9 @@ router.get("/:page", [validateJWT, validateFields], requestControllers.getReques
  *                   description: Estado de la respuesta
  *                 errors:
  *                   type: object
- *                   description: Errores de la peticion
+ *                   description: Errores de la petición
  */
+
 router.post(
   "/",
   [
@@ -125,34 +177,41 @@ router.post(
   ],
   requestControllers.createRequest
 );
+
 /**
  * @openapi
- * /api/requests/deleteRequests:
- *   post:
- *     summary: Loguear usuario
- *     description: Login con el usuario
+ * components:
+ *   securitySchemes:
+ *     TokenAuth:
+ *       type: apiKey
+ *       in: header
+ *       name: x-token
+ *   parameters:
+ *     TokenHeader:
+ *       name: x-token
+ *       in: header
+ *       required: true
+ *       schema:
+ *         type: string
+ *         description: Token de autenticación
+ * /api/request/{id}:
+ *   delete:
+ *     summary: Elimina una solicitud
+ *     description: Elimina una solicitud del sistema utilizando su ID. Requiere autenticación mediante un token.
  *     tags:
  *       - Solicitudes
- *     produces:
- *       - application/json
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               username:
- *                 type: string
- *                 description: El correo electrónico del usuario
- *                 example: "user"
- *               password:
- *                 type: string
- *                 description: La contraseña del usuario
- *                 example: "password123"
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: ID de la solicitud a eliminar
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           example: 1
+ *       - $ref: '#/components/parameters/TokenHeader'
  *     responses:
  *       200:
- *         description: Usuario logueado exitosamente
+ *         description: Solicitud eliminada exitosamente
  *         content:
  *           application/json:
  *             schema:
@@ -163,9 +222,9 @@ router.post(
  *                   description: Estado de la respuesta
  *                 msg:
  *                   type: string
- *                   description: Mensaje de la peticion
+ *                   description: Mensaje de confirmación
  *       400:
- *         description: Error al loguear usuario
+ *         description: Solicitud no encontrada o no puedes eliminarte a ti mismo
  *         content:
  *           application/json:
  *             schema:
@@ -174,9 +233,22 @@ router.post(
  *                 success:
  *                   type: boolean
  *                   description: Estado de la respuesta
- *                 errors:
- *                   type: object
- *                   description: Errores de la peticion
+ *                 error:
+ *                   type: string
+ *                   description: Descripción del error
+ *       500:
+ *         description: Error interno del servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: Estado de la respuesta
+ *                 error:
+ *                   type: string
+ *                   description: Descripción del error
  */
 router.delete(
   "/:id",

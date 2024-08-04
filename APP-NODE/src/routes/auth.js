@@ -80,7 +80,7 @@ router.post("/login", [
 
 /**
  * @openapi
- * /api/auth/renewToken:
+ * /api/auth:
  *   get:
  *     summary: Obtener flashcard
  *     description: Renovar token

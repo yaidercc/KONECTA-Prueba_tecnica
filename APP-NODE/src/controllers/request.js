@@ -58,7 +58,6 @@ requestControllers.createRequest = async (req, res) => {
 requestControllers.deleteRequest = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log("holaa", id);
 
     await requestServices.deleteRequest(id);
 
