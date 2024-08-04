@@ -6,7 +6,6 @@ export const Employees = () => {
   return (
     <div>
         <h2>Empleados</h2>
-        {/* <ModalForm /> */}
         <hr />
         <TableUsers  />
     </div>

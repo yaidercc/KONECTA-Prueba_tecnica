@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { AuthRoutes } from "../Auth/routes/AuthRoutes";
 import { PrivateRoute } from "../guards/PrivateRoute";
 import { PublicRoute } from "../guards/PublicRoute";
@@ -23,6 +23,7 @@ export const AppRouter = () => {
           </PrivateRoute>
         }
       />
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
 };
