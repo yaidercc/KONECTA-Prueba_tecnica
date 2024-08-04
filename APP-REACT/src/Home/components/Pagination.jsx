@@ -1,4 +1,4 @@
-export const Pagination = ({ currentPage, paginationControls, handleSetCurrentPage, countPages, pages }) => {
+ const Pagination = ({ currentPage, paginationControls, handleSetCurrentPage, countPages, pages }) => {
   return (
     <nav>
       <ul className="pagination">
@@ -24,3 +24,4 @@ export const Pagination = ({ currentPage, paginationControls, handleSetCurrentPa
     </nav>
   );
 };
+export default Pagination

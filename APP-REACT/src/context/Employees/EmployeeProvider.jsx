@@ -35,9 +35,6 @@ export const UserProvider = ({ children }) => {
     localStorage.removeItem("token");
     setIsAuthenticated(false);
     setEmployee({});
-    // navigate("/auth/login", {
-    //   replace: true,
-    // });
   };
 
   useEffect(() => {
