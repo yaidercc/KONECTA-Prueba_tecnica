@@ -2,6 +2,8 @@
 
 ### Iniciar aplicacion con docker
 
+IMPORTANTE: No ejecutar el proyecto y el docker al tiempo ya que estos comparten los mismos puertos debido a que tuve que hacer una configuración en las unitarias del front que me impidio usar env en el front.
+
 1. Para iniciar la aplicacion con docker debes ejecutar el siguiente comando:
 
 `docker compose up`
