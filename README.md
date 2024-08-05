@@ -1,16 +1,16 @@
 ## Iniciar aplicacion
 
-### Inicar aplicacion con docker
+### Iniciar aplicacion con docker
 
-Para iniciar la aplicacion con docker debes ejecutar el siguiente comando:
+1. Para iniciar la aplicacion con docker debes ejecutar el siguiente comando:
 
 `docker compose up`
 
-y esperar a que todo se ejecute.
+2. Luego esperas a que todo ejecute y listo, entras al siguiente url: http://localhost:5173
 
 ## Iniciar la aplicacion de la manera tradicional
 
-Primero antes de ejecutar el backend es importante que crees este usuario:
+1. Antes de ejecutar el backend es importante que crees este usuario:
 
 ``
 CREATE ROLE yaidercc WITH LOGIN PASSWORD 'yaidercc123';
@@ -20,7 +20,7 @@ CREATE ROLE yaidercc WITH LOGIN PASSWORD 'yaidercc123';
 ALTER ROLE yaidercc WITH SUPERUSER;
 ``
 
-Luego entras a la carpeta de cada proyecto y ejecutas los siguientes comandos:
+2. Entras a la carpeta de cada proyecto y ejecutas los siguientes comandos:
 
 instalar dependencias:
 
@@ -30,7 +30,7 @@ Iniciar la aplicacion:
 
 `` npm run dev ``
 
-Luego esperas a que todo ejecute y listo, entras al siguiente url: http://localhost:5173
+3. Luego esperas a que todo ejecute y listo, entras al siguiente url: http://localhost:5173
 
 ## Inicar tests
 
