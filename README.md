@@ -10,7 +10,17 @@ y esperar a que todo se ejecute.
 
 ## Iniciar la aplicacion de la manera tradicional
 
-Para ejecutar tanto el front como el backend debes entrar a sus respectivas carpetas y ejecutar los siguientes comandos:
+Primero antes de ejecutar el backend es importante que crees este usuario:
+
+``
+CREATE ROLE yaidercc WITH LOGIN PASSWORD 'yaidercc123';
+``
+
+``
+ALTER ROLE yaidercc WITH SUPERUSER;
+``
+
+Luego entras a la carpeta de cada proyecto y ejecutas los siguientes comandos:
 
 instalar dependencias:
 
