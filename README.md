@@ -10,7 +10,7 @@
 
 ## Iniciar la aplicacion de la manera tradicional
 
-1. Antes de ejecutar el backend es importante que crees este usuario:
+1. Antes de ejecutar el backend es importante que crees este usuario en postgres para conectarse a la base de datos:
 
 ``
 CREATE ROLE yaidercc WITH LOGIN PASSWORD 'yaidercc123';
@@ -52,5 +52,11 @@ para ejecutar los tests debes ejecutar el siguiente comando en cada una de las c
 
 ## Seguridad
 
-- Encriptación de Contraseñas: Utilicé bcryptjs para encriptar las contraseñas, fortaleciendo la seguridad de las credenciales almacenadas.
+- **Encriptación de Contraseñas:** Utilicé bcryptjs para encriptar las contraseñas, fortaleciendo la seguridad de las credenciales almacenadas.
+  
+- **Uso de Sequelize ORM:** Utilizamos Sequelize para manejar las consultas de la base de datos de manera segura, evitando inyecciones SQL y eliminando la necesidad de consultas SQL en crudo.
+  
+- **Autenticación con Tokens:** Implementé tokens para validar la autenticación de los usuarios, garantizando que solo los usuarios autenticados puedan acceder a recursos protegidos.
+  
+- **Control de Acceso con Middlewares:** Implementé middlewares en las rutas para restringir el acceso a ciertas funcionalidades, asegurando que solo los usuarios con roles adecuados (como administradores) puedan realizar acciones específicas.
 
