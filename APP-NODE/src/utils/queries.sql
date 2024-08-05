@@ -1,1 +1,2 @@
-CREATE DATABASE requests_management
+CREATE ROLE yaidercc WITH LOGIN PASSWORD 'yaidercc123';
+ALTER ROLE yaidercc WITH SUPERUSER;

@@ -11,10 +11,6 @@ WORKDIR /app
 COPY --from=dev-deps /app/node_modules ./node_modules
 COPY . .
 RUN mkdir -p /app/public   
-ARG VITE_API_URL
-ENV VITE_API_URL=$VITE_API_URL
-RUN echo "VITE_API_URL=${VITE_API_URL}" > /app/.env
-# RUN chmod 644 /app/public/config.json
 RUN npm run build
 
 # Etapa de producción

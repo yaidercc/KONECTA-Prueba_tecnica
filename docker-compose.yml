@@ -41,8 +41,6 @@ services:
     build:
       context: ./APP-REACT
       dockerfile: Dockerfile
-      args:
-        VITE_API_URL: http://localhost:${PORT}/api/
     container_name: frontend-react
     ports:
       - "5173:80"

@@ -59,6 +59,8 @@ class Server {
     }
   }
 
+  create
+
   routes() {
     this.app.use(this.path.auth, require("./routes/auth"));
     this.app.use(this.path.request, require("./routes/request"));
