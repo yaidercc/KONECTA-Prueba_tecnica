@@ -1,16 +1,26 @@
 ## Iniciar aplicacion
 
-### Inicar aplicacion con docker
+### Iniciar aplicacion con docker
 
-Para iniciar la aplicacion con docker debes ejecutar el siguiente comando:
+1. Para iniciar la aplicacion con docker debes ejecutar el siguiente comando:
 
 `docker compose up`
 
-y esperar a que todo se ejecute.
+2. Luego esperas a que todo ejecute y listo, entras al siguiente url: http://localhost:5173
 
 ## Iniciar la aplicacion de la manera tradicional
 
-Para ejecutar tanto el front como el backend debes entrar a sus respectivas carpetas y ejecutar los siguientes comandos:
+1. Antes de ejecutar el backend es importante que crees este usuario en postgres para conectarse a la base de datos:
+
+``
+CREATE ROLE yaidercc WITH LOGIN PASSWORD 'yaidercc123';
+``
+
+``
+ALTER ROLE yaidercc WITH SUPERUSER;
+``
+
+2. Entras a la carpeta de cada proyecto y ejecutas los siguientes comandos:
 
 instalar dependencias:
 
@@ -20,7 +30,7 @@ Iniciar la aplicacion:
 
 `` npm run dev ``
 
-Luego esperas a que todo ejecute y listo, entras al siguiente url: http://localhost:5173
+3. Luego esperas a que todo ejecute y listo, entras al siguiente url: http://localhost:5173
 
 ## Inicar tests
 
@@ -42,5 +52,11 @@ para ejecutar los tests debes ejecutar el siguiente comando en cada una de las c
 
 ## Seguridad
 
-- Encriptación de Contraseñas: Utilicé bcryptjs para encriptar las contraseñas, fortaleciendo la seguridad de las credenciales almacenadas.
+- **Encriptación de Contraseñas:** Utilicé bcryptjs para encriptar las contraseñas, fortaleciendo la seguridad de las credenciales almacenadas.
+  
+- **Uso de Sequelize ORM:** Utilizamos Sequelize para manejar las consultas de la base de datos de manera segura, evitando inyecciones SQL y eliminando la necesidad de consultas SQL en crudo.
+  
+- **Autenticación con Tokens:** Implementé tokens para validar la autenticación de los usuarios, garantizando que solo los usuarios autenticados puedan acceder a recursos protegidos.
+  
+- **Control de Acceso con Middlewares:** Implementé middlewares en las rutas para restringir el acceso a ciertas funcionalidades, asegurando que solo los usuarios con roles adecuados (como administradores) puedan realizar acciones específicas.
 
